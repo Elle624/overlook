@@ -63,8 +63,15 @@ input[type="button"] {
   }
 }
 
-.manager-view {
+.manager-page {
   background: url("../images/background.png") center / 100% 100% no-repeat;
   height: 100%;
   width: 100%;
+}
+.manager-dashboard {
+  margin-left: 10em;
+}
+
+#book-calendar,#delete-input {
+  width: 15%;
 }
