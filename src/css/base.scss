@@ -1,7 +1,150 @@
 /* This is an example of using Sass, otherwise plain CSS works too*/
+//import variables from ('./variables')
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.hidden {
+  display: none;
+}
+
+.hide {
+  visibility: hidden;
+}
+
 $primary-background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
-;
+
 
 body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background: $primary-background;
+  width: 100%;
+  height: 100vh;
+}
+
+.login-page {
+  margin-top: 10em;
+}
+
+h1, h2 {
+  text-align: center;
+  font-size: 5em;
+  color: #79bfee;
+}
+
+h2 {
+  margin-top: 2em;
+}
+
+h3 {
+  font-size: 2.5em;
+  color: #0d25ad;
+}
+
+.login-form {
+  margin-top: 10em;
+  align-items: center;
+}
+
+input {
+  display: block;
+  text-align: center;
+  font-size: 3em; 
+  width: 100%; 
+  height: 1.5em;
+  padding: 0.1em;
+  margin-bottom: 1em;
+  border-radius: .1em;
+}
+
+button {
+  align-items: center;
+  justify-content: center;;
+  font-size: 2em;
+  width: auto;
+  min-width: 6em;
+  padding: 5px;
+  margin-left: 9em;
+  background-color: #4287f5;
+  border: none;
+  border-radius: 3em;
+  color: #fff;
+  transition: 300ms;
+  &:hover {
+    cursor: pointer;
+    color: rgb(5, 5, 197);
+    opacity: 0.7;
+  }
+}
+
+.main-page {
+  background: url("../images/background.png") center / 100% 100% no-repeat;
+  height: 100%;
+}
+.dashboard {
+  margin: 10em 10em;
+  display: flex;
+}
+.left-side {
+  background-color: rgba(195, 227, 249, 0.4);
+  width: 30%;
+  height: 100%;
+  }
+
+.today-data {
+  text-align: center;
+}
+
+.book-room {
+  margin-top: 2em;
+}
+
+#calendar-input {
+  width: 10em;
+}
+
+.label-name {
+  font-size: 2.5em;
+}
+
+p {
+  font-size: 2.5em;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.5;
+  }
+}
+
+.book-btn {
+  margin:1em 0;
+}
+
+.right-side {
+  background-color:rgba(195, 227, 249, 0.6);
+  margin-left: 10%;
+  width: 60%;
+  display: flex;
+}
+
+.delete-booking {
+  width: 40%;
+}
+
+.delete-booking-btn {
+  margin-left: 6em;
+}
+
+.guest-data {
+  margin-right: 5em;
+  padding-right: 5em;
+  border-right:rgba(249, 220, 195, 0.2) 0.5em dashed;
+  width: 45em;
+}
+
+.guest {
+  color:rgb(4, 54, 129)
 }

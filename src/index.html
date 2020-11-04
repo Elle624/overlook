@@ -1,13 +1,74 @@
 <!DOCTYPE html>
 <html lang="en-US">
   <head>
-    <title>Webpack Starter Kit</title>
+    <meta charset="utf-8">
+    <title>Overlook</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <h1>Webpack Starter Kit</h1>
-
-    <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
-
-    <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
+    <section class="login-page hidden">
+      <h1>Welcome to Overlook</h1>
+      <form class="login-form">
+        <label for="username"></label>
+        <input class="to-save" type="text" id="username" placeholder="username"/>
+        <label for="password"></label> 
+        <input class="to-save" type="text" id="password" placeholder="password"/>
+        <button type="button" id="register-btn">Login</button>
+      </form>
+    </section>
+    <section class="main-page">
+      <h2>Welcome back Elle</h2>
+      <section class="dashboard">
+        <section class="left-side">
+          <section class="today-data">
+            <h3 class="available-room">Available rooms today: 10</h3>
+            <h3 class="today-revenue">Today's total revenue: $1000</h3>
+            <h3 class="today-occupation">Room Occupation rate: 20%</h3>
+          </section>
+          <section class="book-room">
+            <label class="label-name" for="calendar-input">Please select a date</label>
+            <input type="date" min="2020-01-01" name="calendar" id="calendar-input">
+          </section>
+          <section class="list-rooms">
+            <select class="label-name">Filter by type
+              <option>select</option>
+              <option>type1</option>
+            </select>
+            <p tabindex="0">room1</p>
+            <p tabindex="0">room2</p>
+            <p tabindex="0">room3</p>
+            <button class="book-btn">Book</button>
+          </section>
+          <section class="no-room">
+            <p>We are very sorry!!! Currently there are no rooms available for that day, please try a different date!</p>
+          </section>
+        </section>
+        <section class="right-side">
+          <section class="guest-data">
+            <label class="label-name" for="guest">Please enter guest's name</label>
+            <input type="text" placeholder="First name  Last name" id="guest">
+            <section class="display-guest-data">
+              <h3 class="guest guest-booking">Booking History</h3>
+              <p>2020/03/02 room 2</p>
+              <h3 class="guest guest-cost">Total Cost: $2000</h3>
+            </section>
+          </section>
+          <section class="delete-booking">
+            <form class="delete-input">
+              <!-- <label class="label-name" for="date">Please enter guest name</label>
+              <input type="text" placeholder="First name  Last name"> -->
+              <label class="label-name" for="delete-date">Please enter a date</label>
+              <input type="date" min="2020-01-01" id="delete-date">
+              <label class="label-name" for="room-num">Please enter room number</label>
+              <input type="number" min="0" max="25" placeholder="e.g 6" id="room-num">
+            </form>
+            <button class="delete-booking-btn">Delete Booking</button>
+          </section>
+          
+        </section>
+      </section>
+    </section>
   </body>
+  <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
 </html>
+
