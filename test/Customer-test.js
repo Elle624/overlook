@@ -41,6 +41,10 @@ describe.only('Customer Class', () => {
     it('should have a name', () => {
       expect(customer2.name).to.equal('Felix');
     })
+
+    it('should have an id', () => {
+      expect(customer3.id).to.equal(1);
+    })
   })
 
   describe('method', () => {
@@ -61,6 +65,7 @@ describe.only('Customer Class', () => {
       
       expect(result).to.equal(0);
     })
+    
   })
 
 })
