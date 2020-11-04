@@ -38,7 +38,23 @@ describe.only('BookingsRepo Class', () => {
   })
 
   describe('methods', () => {
+    it('should return booked room by passing in date', () => {
+      const result = bookingsRepo.returnBookedRoomsNum('date', '2020/01/10');
+      
+      expect(result.length).to.equal(1);
+    })
 
+    it('should return booked room by passing in another date', () => {
+      const result = bookingsRepo.returnBookedRoomsNum('date', '2020/02/20');
+      
+      expect(result[0]).to.equal(20);
+    })
+
+    it('should return booked room by passing in user id', () => {
+      const result = bookingsRepo.returnBookedRoomsNum('userID', 3);
+      
+      expect(result).to.deep.equal([23]);
+    })
   })
 
 })
