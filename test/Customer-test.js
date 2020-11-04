@@ -2,18 +2,20 @@ import { expect } from 'chai';
 import Customer from '../src/Customer';
 
 describe.only('Customer Class', () => {
-  let customer, bookings, rooms;
+  let customer1, customer2, customer3, bookings, rooms;
   beforeEach(() => {
-    customer = new Customer(7, 'Felix');
+    customer1 = new Customer(7, 'Isbael');
+    customer2 = new Customer(2, 'Felix');
+    customer3 = new Customer(1, 'Otter');
     bookings = [
       {
         "userID": 7,
         "date": "2019/09/23",
-        "roomNumber": 2
+        "roomNumber": 20
       },
       {
-        "userID": 10,
-        "date": "2019/09/23",
+        "userID": 2,
+        "date": "2019/11/01",
         "roomNumber": 20
       },
       {
@@ -24,7 +26,7 @@ describe.only('Customer Class', () => {
     ];
     rooms = [
       {"number":7,"costPerNight":105.58}, 
-      {"number":10,"costPerNight":307.64}
+      {"number":20,"costPerNight":307.64}
     ];
   })
   describe('initialize', () => {
@@ -33,11 +35,31 @@ describe.only('Customer Class', () => {
     })
 
     it('should be an instance of Customer Class', () => {
-      expect(customer).to.be.an.instanceof(Customer);
+      expect(customer1).to.be.an.instanceof(Customer);
     })
 
     it('should have a name', () => {
-      expect(customer.name).to.equal('Felix');
+      expect(customer2.name).to.equal('Felix');
+    })
+  })
+
+  describe('method', () => {
+    it('should return user\'s total revenue', () => {
+      const result = customer1.returnUserRevenue(7, bookings, rooms);
+      
+      expect(result.toFixed(2)).to.equal('413.22');
+    })
+
+    it('should be able to return a different user\'s total revenue', () => {
+      const result = customer2.returnUserRevenue(2, bookings, rooms);
+      
+      expect(result.toFixed(2)).to.equal('307.64');
+    })
+
+    it('should return 0 if user did not book any rooms', () => {
+      const result = customer3.returnUserRevenue(1, bookings, rooms);
+      
+      expect(result).to.equal(0);
     })
   })
 
