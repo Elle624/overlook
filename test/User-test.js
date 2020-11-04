@@ -1,4 +1,4 @@
-import { expect } from 'chai'
+import { expect } from 'chai';
 import User from '../src/User';
 
 describe('User class', () => {
@@ -50,11 +50,6 @@ describe('User class', () => {
 
       expect(result).to.equal(undefined);
     })
-
-    it('should return bookings an user made', () => {
-      
-    })
   })
   
-
 })
