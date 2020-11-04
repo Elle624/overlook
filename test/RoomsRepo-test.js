@@ -1,0 +1,40 @@
+import { expect } from 'chai';
+import RoomsRepo from '../src/RoomsRepo';
+import Room from '../src/Room';
+
+describe.only('RooomsRepo Class', () => {
+  let roomsRepo, room1, room2, room3;
+  beforeEach(() => {
+    room1 = new Room(1, "residential", true, "queen", 1, 258.4);
+    room2 = new Room(2, "suit", true, "full", 2, 230.48);
+    room3 = new Room(3, "single", false, "twin", 1, 100.51);
+    roomsRepo = new RoomsRepo();
+
+  })
+
+  describe('initialize', () => {
+    it('should be a function', () => {
+      expect(RoomsRepo).to.be.a('function');
+    })
+
+    it('should be an instance of RoomsRepo class', () => {
+      expect(roomsRepo).to.be.an.instanceof(RoomsRepo);
+    })
+
+    it('should have an empty array by default', () => {
+      expect(roomsRepo.rooms).to.be.deep.equal([]);
+    })
+
+    it('should be able to hold rooms once passed in', () => {
+      roomsRepo = new RoomsRepo([room1, room2]);
+
+      expect(roomsRepo.rooms).to.deep.equal([room1, room2]);
+    })
+
+    it('should be able to hold more rooms once passed in', () => {
+      roomsRepo = new RoomsRepo([room1, room2, room3]);
+
+      expect(roomsRepo.rooms).to.deep.equal([room1, room2, room3]);
+    })
+  })
+})
