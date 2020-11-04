@@ -2,14 +2,13 @@ import { expect } from 'chai';
 import RoomsRepo from '../src/RoomsRepo';
 import Room from '../src/Room';
 
-describe.only('RooomsRepo Class', () => {
+describe('RooomsRepo Class', () => {
   let roomsRepo, room1, room2, room3, roomsTaken;
   beforeEach(() => {
     room1 = new Room(1, "single", true, "queen", 1, 258.4);
     room2 = new Room(2, "suit", true, "full", 2, 230.48);
     room3 = new Room(3, "single", false, "twin", 1, 100.51);
     roomsRepo = new RoomsRepo([room1, room2, room3]);
-    roomsTaken = [3];
   })
 
   describe('initialize', () => {
@@ -51,13 +50,13 @@ describe.only('RooomsRepo Class', () => {
     })
 
     it('should return available room#', () => {
-      const result = roomsRepo.returnAvailableRooms(roomsTaken);
+      const result = roomsRepo.returnAvailableRooms(roomsTaken = [3]);
 
       expect(result).to.deep.equal([1, 2]);
     })
 
     it('should return available all room# if no rooms are taken', () => {
-      const result = roomsRepo.returnAvailableRooms(roomsTaken=[]);
+      const result = roomsRepo.returnAvailableRooms(roomsTaken = []);
 
       expect(result).to.deep.equal([1, 2, 3]);
     })
