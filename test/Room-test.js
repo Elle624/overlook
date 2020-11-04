@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import Room from '../src/Room';
 
-describe.only('Rooom Class', () => {
+describe('Rooom Class', () => {
   let room1;
   beforeEach(() => {
     room1 = new Room(1, "residential", true, "queen", 1, 258.4);
