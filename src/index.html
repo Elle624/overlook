@@ -6,47 +6,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <section class="log-in-page hidden">
-      <!-- <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px"> -->
+    <section class="login-page hidden">
       <h1>Welcome to Overlook</h1>
-      <form class="log-in">
+      <form class="login-form">
         <input class="to-save" type="text" id="username" placeholder="username"/> 
         <input class="to-save" type="text" id="password" placeholder="password"/>
-        <input type="button" id="register-btn" value="Login"/>
+        <button type="button" id="register-btn">Login</button>
       </form>
     </section>
-    <section class="manager-page">
-      <section class="manager-dashboard">
-        <section class="today-data">
-          <h1>Welcome back Elle</h1>
-          <h2>Available rooms today: 10</h2>
-          <h2>Today's total revenue: $1000</h2>
-          <h2>Room Occupation rate: 20%</h2>
+    <section class="main-page">
+      <h1>Welcome back Elle</h1>
+      <section class="dashboard">
+        <section class="left-side">
+          <section class="today-data">
+            <h2 class="available-room">Available rooms today: 10</h2>
+            <h2 class="today-revenue">Today's total revenue: $1000</h2>
+            <h2 class="today-occupation">Room Occupation rate: 20%</h2>
+          </section>
+          <section class="book-room">
+            <label class="label-name" for="date">Please select a date</label>
+            <input type="date" min="2020-01-01" name="calendar" class="calendar-input">
+          </section>
+          <section class="list-rooms">
+            <select class="label-name">Filter by type
+              <option>select</option>
+              <option>type1</option>
+            </select>
+            <p tabindex="0">room1</p>
+            <p tabindex="0">room2</p>
+            <p tabindex="0">room3</p>
+            <button class="book-btn">Book</button>
+          </section>
+          <section class="no-room">
+            <p>We are very sorry!!! Currently there are no rooms available for that day, please try a different date!</p>
+          </section>
         </section>
-        <section class="book-room">
-          <label for="date">Please select a date</label>
-          <input type="date" name="calendar" id="book-calendar">
-        </section>
-        <section class="list-rooms">
-          <select>Filter by type
-            <option>select</option>
-            <option>test</option>
-          </select>
-          <p>room1</p>
-          <p>room2</p>
-          <p>room3</p>
-          <button>Book</button>
-        </section>
-        <section class="delete-booking">
-          <form>
-            <label for="date">Please enter guest name</label>
-            <input type="text" id="delete-input">
-            <label for="date">Please enter a date</label>
-            <input type="text" id="delete-input">
-            <label for="date">Please enter room number</label>
-            <input type="text" id="delete-input">
-          </form>
-          <button>Delete Booking</button>
+        <section class="right-side">
+          <section class="delete-booking">
+            <form class="delete-input">
+              <label class="label-name" for="date">Please enter guest name</label>
+              <input type="text" placeholder="First name  Last name">
+              <label class="label-name" for="date">Please enter a date</label>
+              <input type="date" min="2020-01-01">
+              <label class="label-name" for="date">Please enter room number</label>
+              <input type="number" min="0" max="25" placeholder="e.g 6">
+            </form>
+            <button class="delete-booking-btn">Delete Booking</button>
+          </section>
+          <section>
+            
+          </section>
         </section>
       </section>
     </section>
