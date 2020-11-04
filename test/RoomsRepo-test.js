@@ -5,10 +5,10 @@ import Room from '../src/Room';
 describe.only('RooomsRepo Class', () => {
   let roomsRepo, room1, room2, room3;
   beforeEach(() => {
-    room1 = new Room(1, "residential", true, "queen", 1, 258.4);
+    room1 = new Room(1, "single", true, "queen", 1, 258.4);
     room2 = new Room(2, "suit", true, "full", 2, 230.48);
     room3 = new Room(3, "single", false, "twin", 1, 100.51);
-    roomsRepo = new RoomsRepo();
+    roomsRepo = new RoomsRepo([room1, room2, room3]);
 
   })
 
@@ -22,6 +22,8 @@ describe.only('RooomsRepo Class', () => {
     })
 
     it('should have an empty array by default', () => {
+      roomsRepo = new RoomsRepo();
+
       expect(roomsRepo.rooms).to.be.deep.equal([]);
     })
 
@@ -32,9 +34,22 @@ describe.only('RooomsRepo Class', () => {
     })
 
     it('should be able to hold more rooms once passed in', () => {
-      roomsRepo = new RoomsRepo([room1, room2, room3]);
-
       expect(roomsRepo.rooms).to.deep.equal([room1, room2, room3]);
     })
   })
+  describe('methods', () => {
+    it('should filter rooms by type', () => {
+      const result = roomsRepo.filterRoomsByType('suit');
+      
+      expect(result).to.deep.equal([room2]);
+    })
+
+    it('should filter rooms by other type', () => {
+      const result = roomsRepo.filterRoomsByType('single');
+      
+      expect(result).to.deep.equal([room1, room3]);
+    })
+
+  //   it('should return available rooms#', () => {})
+   })
 })
