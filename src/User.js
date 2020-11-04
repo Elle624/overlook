@@ -4,9 +4,9 @@ class User {
     this.name = name;
   }
 
-  returnNameById(id, users) {
-    const targetUser = users.find(user => user.id === id);
-    return  targetUser ? targetUser.name : targetUser
+  returnUser(ref, users) {
+    ref.toLowerCase(); 
+    return users.find(user => user.id == ref || user.name === ref);
   }
 
 }
