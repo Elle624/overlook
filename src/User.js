@@ -6,8 +6,8 @@ class User {
 
   returnNameById(id, users) {
     const targetUser = users.find(user => user.id === id);
-    return  targetUser.name;
+    return  targetUser ? targetUser.name : targetUser
   }
-  
+
 }
 export default User

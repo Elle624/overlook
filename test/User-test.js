@@ -27,7 +27,12 @@ describe('User class', () => {
     it('should return a user name by passing id#', () => {
       const result = user1.returnNameById(7, users);
 
-      expect(result).to.equal('Isabel')
+      expect(result).to.equal('Isabel');
+    })
+    it('should not return a user name if it\'s not found', () => {
+      const result = user2.returnNameById(1, users);
+
+      expect(result).to.equal(undefined);
     })
   })
   
