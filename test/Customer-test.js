@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import Customer from '../src/Customer';
 
-describe.only('Customer Class', () => {
+describe('Customer Class', () => {
   let customer1, customer2, customer3, bookings, rooms;
   beforeEach(() => {
     customer1 = new Customer(7, 'Isbael');
@@ -65,7 +65,7 @@ describe.only('Customer Class', () => {
       
       expect(result).to.equal(0);
     })
-    
+
   })
 
 })
