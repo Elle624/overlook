@@ -3,8 +3,17 @@ class RoomsRepo {
     this.rooms = rooms || [];
   }
 
-  filterRoomsByType(type) {
-    return this.rooms.filter(room => room.roomType === type);
+  filterRoomsByType(type, rooms) {
+    return rooms.filter(room => room.roomType === type);
+  }
+
+  returnAvailableRooms(roomsTaken) {
+    return this.rooms.reduce((roomsNum, room) => {
+      if(!roomsTaken.includes(room.number)) {
+        roomsNum.push(room.number);
+      };
+      return roomsNum;
+    }, [])
   }
 }
 
