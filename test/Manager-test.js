@@ -1,10 +1,10 @@
 import { expect } from 'chai';
 import Manager from '../src/Manager';
 
-describe.only('Manager Class', () => {
+describe('Manager Class', () => {
   let manager, bookings, rooms;
   beforeEach(() => {
-    manager = new Manager(27, 'Amber');
+    manager = new Manager('Amber');    
     bookings = [
       {
         "userID": 24,
@@ -38,6 +38,10 @@ describe.only('Manager Class', () => {
 
     it('should have a name', () => {
       expect(manager.name).to.equal('Amber');
+    })
+
+    it('should have manager as default id', () => {
+      expect(manager.id).to.equal('manager');
     })
   })
   describe('method', () => {
