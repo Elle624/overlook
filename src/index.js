@@ -14,7 +14,26 @@ import apiCalls from './apiCalls.js';
 // import './images/turing-logo.png'
 
 //Gloabel Variable
-let currentUser;
+let currentUser, users, rooms, bookings;
+
+//pulling apidata
+
+  Promise.all([apiCalls.getUserData(), apiCalls.getRoomData(), apiCalls.getBookingData()])
+  .then(data => {
+    const allData = data.reduce((dataSet, eachDataset) => {      
+      return dataSet = {...dataSet, ...eachDataset}
+    }, {})
+    instanciatate(allData);
+  })
+
+
+function instanciatate(dataSet) {
+  users = dataSet.users.map(user => new User(user.id, user.name));
+  rooms = dataSet.rooms.map(room => new Room(room.number, room.roomType, room.bidet, room.bedSize, room.numBeds, room.costPerNight));
+  bookings = dataSet.bookings.map(booking => new Booking(booking.id, booking.userID, booking.date, booking.roomNumber, booking.roomServiceCharges));
+}
+
+
 
 //Query Selector
 const loginInputs = document.querySelectorAll('.login-input');
@@ -29,7 +48,7 @@ const todayRevenue = document.querySelector('.today-revenue');
 const todayOccupation = document.querySelector('.today-occupation');
 
 //event listener
-loginBtn.addEventListener('click', checkLoginInputs);
+//loginBtn.addEventListener('click', checkLoginInputs);
 
 
 //function
@@ -49,7 +68,7 @@ function checkUsername() {
   if (splitInput[0] === 'manager') {
     currentUser = new Manager('Elle')
     return true;
-  } else if (splitInput[0] !== 'manager' && splitInput[1] < 51) {
+  } else if (splitInput[0] === '' && splitInput[1] < 51) {
     const id = parseInt(splitInput[1]);
     currentUser = new User(id, 'Isabel')
    return true;
