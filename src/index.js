@@ -16,6 +16,7 @@ const loginData = Array.from(loginInputs);
 const loginBtn = document.querySelector('#register-btn');
 const loginPage = document.querySelector('.login-page');
 const mainPage = document.querySelector('.main-page');
+const dashboardRightSide = document.querySelector('.right-side');
 
 //event listener
 loginBtn.addEventListener('click', checkLoginInputs);
@@ -54,6 +55,8 @@ function updateElement(elements) {
   elements.forEach(element => {
     if(element.addHidden) {
       element.section.classList.add('hidden')
+    } else if (element.addHide) {
+      element.section.classList.add('hide')
     } else {
       element.section.classList.remove('hidden')
     }
@@ -64,11 +67,21 @@ function displayPage() {
   if (currentUser instanceof Manager) {
     displayManagerPage();
   } else if (currentUser instanceof User) {
-    //placeholder
+    displayCustomerPage();
   }
 }
 
 function displayManagerPage() { 
   const sections = [{section: loginPage, addHidden: true}, {section: mainPage}];
+  updateElement(sections);
+  //updateManagerPage();
+}
+
+// function updateManagerPage() {
+
+// }
+
+function displayCustomerPage() {
+  const sections = [{section: loginPage, addHidden: true}, {section: mainPage}, {section: dashboardRightSide, addHide: true}];
   updateElement(sections);
 }
