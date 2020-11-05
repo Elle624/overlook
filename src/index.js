@@ -1,9 +1,14 @@
 // This is the JavaScript entry file - your code begins here
 // Do not delete or rename this file ********
 import './css/base.scss';
+import User from './User';
 import Manager from './Manager.js';
 import Customer from './Customer.js';
-import User from './User';
+import Room from './Room.js';
+import RoomsRepo from './RoomsRepo';
+import Booking from './Booking.js';
+import BookingsRepo from './BookingsRepo.js';
+
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 // import './images/turing-logo.png'
 
