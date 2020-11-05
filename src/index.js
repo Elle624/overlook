@@ -26,14 +26,17 @@ const loginPage = document.querySelector('.login-page');
 const mainPage = document.querySelector('.main-page');
 const dashboardRightSide = document.querySelector('.right-side');
 const todayDataSection = document.querySelector('.today-data');
-const calendarInput = document.querySelector('#calendar-input');
 const listRoomsSection = document.querySelector('.list-rooms');
+const calendarInput = document.querySelector('#calendar-input');
+const selectDateBtn = document.querySelector('.select-date-btn');
+const displayRooms = document.querySelector('.display-rooms');
 const guestSearchBtn = document.querySelector('.search-customer-btn');
 const guestSearchInput = document.querySelector('#guest');
-const displayGuestDataSection = document.querySelector('.display-guest-data')
+const displayGuestDataSection = document.querySelector('.display-guest-data');
 
 //event listener
 loginBtn.addEventListener('click', checkLoginInputs);
+selectDateBtn.addEventListener('click', displayAvailableRooms);
 guestSearchBtn.addEventListener('click', displayGuestInfo);
 
 //function
@@ -124,12 +127,24 @@ function displayManagerTodayData() {
   domUpdate.updateManagerTodayData(todayDataSection, (openRooms.length), revenue, ((bookedRooms.length)/25));
 }
 
-// function displayAvailableRooms() {  
-//   if (calendarInput.value !== '') {
-//     console.log('yes');
-//     updateElement[{section: listRoomsSection}];
-//   }
-// }
+function displayAvailableRooms() {  
+  const selectDate = calendarInput.value.split('-').join('/');
+  const bookedRooms = bookingsRepo.returnBookedRoomsNum('date', selectDate);
+  const openRooms = roomsRepo.returnAvailableRooms(bookedRooms);
+  const types = returnAllRoomTypes();
+  domUpdate.updateAvailableRooms(listRoomsSection, openRooms, types);
+  updateElement([{section: listRoomsSection}]);
+}
+
+function returnAllRoomTypes() {
+  return rooms.reduce((types, room) => {
+    if (!types.includes(room.roomType)) {
+      types.push(room.roomType);
+    }
+    return types
+  }, [])
+}
+
 function returnGuestInfo() {
   return customers.find(customer => customer.name === guestSearchInput.value)
 }
