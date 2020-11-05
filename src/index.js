@@ -1,19 +1,20 @@
 // This is the JavaScript entry file - your code begins here
 // Do not delete or rename this file ********
 import './css/base.scss';
-import User from './User';
+//import User from './User';
 import Manager from './Manager.js';
 import Customer from './Customer.js';
 import Room from './Room.js';
 import RoomsRepo from './RoomsRepo';
 import Booking from './Booking.js';
 import BookingsRepo from './BookingsRepo.js';
+import apiCalls from './apiCalls.js';
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 // import './images/turing-logo.png'
 
 //Gloabel Variable
-let currentUser;
+let currentUser, customers, rooms, bookings;
 
 //Query Selector
 const loginInputs = document.querySelectorAll('.login-input');
@@ -32,6 +33,21 @@ loginBtn.addEventListener('click', checkLoginInputs);
 
 
 //function
+
+Promise.all([apiCalls.getUserData(), apiCalls.getRoomData(), apiCalls.getBookingData()])
+  .then(data => {
+    const allData = data.reduce((dataSet, eachDataset) => {      
+      return dataSet = {...dataSet, ...eachDataset}
+    }, {})
+    instanciatate(allData);
+  })
+
+function instanciatate(dataSet) {
+  customers = dataSet.users.map(user => new Customer(user.id, user.name));
+  rooms = dataSet.rooms.map(room => new Room(room.number, room.roomType, room.bidet, room.bedSize, room.numBeds, room.costPerNight));
+  bookings = dataSet.bookings.map(booking => new Booking(booking.id, booking.userID, booking.date, booking.roomNumber, booking.roomServiceCharges));
+}
+
 function checkLoginInputs() {
   if (!areInputsFilled() && checkUsername() && checkPassword()) {
     displayPage();
@@ -42,19 +58,23 @@ function areInputsFilled() {
   return loginData.find(input => input.value === '');
 }
 
-//new User hard code in
 function checkUsername() {
   const splitInput = loginData[0].value.split('customer'); 
   if (splitInput[0] === 'manager') {
     currentUser = new Manager('Elle')
     return true;
-  } else if (splitInput[0] !== 'manager' && splitInput[1] < 51) {
-    const id = parseInt(splitInput[1]);
-    currentUser = new User(id, 'Isabel')
-   return true;
+  } else if (splitInput[0] === '' && splitInput[1] < 51) {
+    const id = parseInt(splitInput[1]).toFixed(0);
+    currentUser = updateCurrentCustomer(id);
+    return true;
   } else {
     return false
   }
+}
+
+function updateCurrentCustomer(id) {
+  id = parseInt(id);
+  return customers.find(customer => customer.id === id);
 }
 
 function checkPassword() {
@@ -76,7 +96,7 @@ function updateElement(elements) {
 function displayPage() {
   if (currentUser instanceof Manager) {
     displayManagerPage();
-  } else if (currentUser instanceof User) {
+  } else if (currentUser instanceof Customer) {
     displayCustomerPage();
   }
   updateWelcome();
