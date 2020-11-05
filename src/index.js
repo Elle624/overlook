@@ -2,19 +2,21 @@
 // Do not delete or rename this file ********
 import './css/base.scss';
 //import User from './User';
-import Manager from './Manager.js';
-import Customer from './Customer.js';
-import Room from './Room.js';
+import Manager from './Manager';
+import Customer from './Customer';
+import Room from './Room';
 import RoomsRepo from './RoomsRepo';
-import Booking from './Booking.js';
-import BookingsRepo from './BookingsRepo.js';
-import apiCalls from './apiCalls.js';
+import Booking from './Booking';
+import BookingsRepo from './BookingsRepo';
+import apiCalls from './apiCalls';
+import domUpdate from './domUpdate';
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 // import './images/turing-logo.png'
 
 //Gloabel Variable
-let currentUser, customers, rooms, bookings;
+const todayDate = '2020/02/12';
+let currentUser, customers, rooms, bookings, roomsRepo, bookingsRepo;
 
 //Query Selector
 const loginInputs = document.querySelectorAll('.login-input');
@@ -40,12 +42,16 @@ Promise.all([apiCalls.getUserData(), apiCalls.getRoomData(), apiCalls.getBooking
       return dataSet = {...dataSet, ...eachDataset}
     }, {})
     instanciatate(allData);
+    currentUser = new Manager('Elle')
+    displayManagerPage();
   })
 
 function instanciatate(dataSet) {
   customers = dataSet.users.map(user => new Customer(user.id, user.name));
   rooms = dataSet.rooms.map(room => new Room(room.number, room.roomType, room.bidet, room.bedSize, room.numBeds, room.costPerNight));
+  roomsRepo = new RoomsRepo(rooms);
   bookings = dataSet.bookings.map(booking => new Booking(booking.id, booking.userID, booking.date, booking.roomNumber, booking.roomServiceCharges));
+  bookingsRepo = new BookingsRepo(bookings);
 }
 
 function checkLoginInputs() {
@@ -61,7 +67,7 @@ function areInputsFilled() {
 function checkUsername() {
   const splitInput = loginData[0].value.split('customer'); 
   if (splitInput[0] === 'manager') {
-    currentUser = new Manager('Elle')
+    currentUser = new Manager('Elle');
     return true;
   } else if (splitInput[0] === '' && splitInput[1] < 51) {
     const id = parseInt(splitInput[1]).toFixed(0);
@@ -102,10 +108,23 @@ function displayPage() {
   updateWelcome();
 }
 
+/////////////////////////Manager site below///////////////////////////
 function displayManagerPage() { 
   const sections = [{section: loginPage, addHidden: true}, {section: mainPage}];
   updateElement(sections);
+  displayManagerTodayData()
 }
+
+function displayManagerTodayData() {
+  const bookedRooms = bookingsRepo.returnBookedRoomsNum('date', todayDate);
+  const openRooms = roomsRepo.returnAvailableRooms(bookedRooms);
+  const revenue = currentUser.returnTodayRevenue(todayDate, bookings, rooms);
+  domUpdate.updateManagerTodayData(todayDataSection, (openRooms.length), revenue, ((bookedRooms.length)/25));
+}
+
+
+
+/////////////////////////Manager site above///////////////////////////
 
 function displayCustomerPage() {
   const sections = [{section: loginPage, addHidden: true}, {section: mainPage}, {section: dashboardRightSide, addHide: true}];
@@ -117,7 +136,6 @@ function updateWelcome() {
   const welcome = document.querySelector('h2');
   welcome.innerText = `Welcome back ${currentUser.name}`;
 }
-
 //hard code in
 function updateCustomerPage() {
   todayDataSection.innerHTML = '';
