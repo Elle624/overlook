@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import BookingsRepo from '../src/BookingsRepo';
 import Booking from '../src/Booking';
 
-describe.only('BookingsRepo Class', () => {
+describe('BookingsRepo Class', () => {
   let booking1, booking2, booking3, bookingsRepo;
   beforeEach(() => {
     booking1 =  new Booking('5fwrgu4i7khl6t6', 1, '2020/01/10', 10, []);
