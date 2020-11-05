@@ -26,13 +26,15 @@ const loginPage = document.querySelector('.login-page');
 const mainPage = document.querySelector('.main-page');
 const dashboardRightSide = document.querySelector('.right-side');
 const todayDataSection = document.querySelector('.today-data');
-const availableRooms = document.querySelector('.available-room');
-const todayRevenue = document.querySelector('.today-revenue');
-const todayOccupation = document.querySelector('.today-occupation');
+const calendarInput = document.querySelector('#calendar-input');
+const listRoomsSection = document.querySelector('.list-rooms');
+const guestSearchBtn = document.querySelector('.search-customer-btn');
+const guestSearchInput = document.querySelector('#guest');
+const displayGuestDataSection = document.querySelector('.display-guest-data')
 
 //event listener
 loginBtn.addEventListener('click', checkLoginInputs);
-
+guestSearchBtn.addEventListener('click', displayGuestInfo);
 
 //function
 
@@ -94,7 +96,7 @@ function updateElement(elements) {
     } else if (element.addHide) {
       element.section.classList.add('hide')
     } else {
-      element.section.classList.remove('hidden')
+      element.section.classList.remove('hidden', 'hide')
     }
   });
 }
@@ -112,7 +114,7 @@ function displayPage() {
 function displayManagerPage() { 
   const sections = [{section: loginPage, addHidden: true}, {section: mainPage}];
   updateElement(sections);
-  displayManagerTodayData()
+  displayManagerTodayData();
 }
 
 function displayManagerTodayData() {
@@ -122,7 +124,27 @@ function displayManagerTodayData() {
   domUpdate.updateManagerTodayData(todayDataSection, (openRooms.length), revenue, ((bookedRooms.length)/25));
 }
 
+// function displayAvailableRooms() {  
+//   if (calendarInput.value !== '') {
+//     console.log('yes');
+//     updateElement[{section: listRoomsSection}];
+//   }
+// }
+function returnGuestInfo() {
+  return customers.find(customer => customer.name === guestSearchInput.value)
+}
 
+function displayGuestInfo() {
+  const customer = returnGuestInfo();
+  if (customer) {
+    const bookings = bookingsRepo.filterBookingsByRef('userID', customer.id);
+    const totalCost = customer.returnUserRevenue(customer.id, bookings, rooms) 
+    domUpdate.updateGuestInfo(displayGuestDataSection, bookings, totalCost)
+    updateElement([{section: displayGuestDataSection}]);
+  } else {
+    updateElement([{section: displayGuestDataSection, addHidden: true}]);
+  }
+}
 
 /////////////////////////Manager site above///////////////////////////
 
