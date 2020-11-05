@@ -8,6 +8,7 @@ import Room from './Room.js';
 import RoomsRepo from './RoomsRepo';
 import Booking from './Booking.js';
 import BookingsRepo from './BookingsRepo.js';
+import apiCalls from './apiCalls.js';
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 // import './images/turing-logo.png'
