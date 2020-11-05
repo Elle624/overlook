@@ -55,6 +55,18 @@ describe.only('BookingsRepo Class', () => {
       
       expect(result).to.deep.equal([23]);
     })
+
+    it('should filter through bookings by referance', () => {
+      const result = bookingsRepo.filterBookingsByRef('date', '2020/02/20');
+
+      expect(result).to.deep.equal([booking2]);
+    })
+
+    it('should filter through bookings by referance', () => {
+      const result = bookingsRepo.filterBookingsByRef('userID', 1);
+
+      expect(result).to.deep.equal([booking1]);
+    })
   })
 
 })

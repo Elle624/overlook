@@ -12,6 +12,9 @@ class BookingsRepo {
     }, [])
   }
 
+  filterBookingsByRef(ref, detail) {
+    return this.bookings.filter(booking => booking[ref] === detail);
+  }
 }
 
 export default BookingsRepo
