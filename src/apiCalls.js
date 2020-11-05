@@ -4,6 +4,18 @@ const getData = (path) => {
     .catch(err => console.log(err))
 }
 
+const updateData = (path, action, data) => {
+  return fetch(path, {
+      method: action,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(response => response.json())
+      .catch(err => console.log(err))
+}
+
 const apiCalls = {
 
   getUserData: () => {
@@ -19,30 +31,13 @@ const apiCalls = {
   },
 
   addBookingData: (bookingData) => {
-    return fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(bookingData)
-    })
-      .then(response => response.json())
-      .catch(err => console.log(err))
+    updateData('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', 'POST', bookingData)
   },
 
   deleteBookingData: (bookingData) => {
-    return fetch('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(bookingData)
-    })
-      .then(response => response.json())
-      .catch(err => console.log(err))
+    updateData('https://fe-apps.herokuapp.com/api/v1/overlook/1904/bookings/bookings', 'DELETE', bookingData)
   }
-  
-  
+
 }
 
 export default apiCalls;
