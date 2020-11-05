@@ -69,19 +69,20 @@ function displayPage() {
   } else if (currentUser instanceof User) {
     displayCustomerPage();
   }
+  updateWelcome();
 }
 
 function displayManagerPage() { 
   const sections = [{section: loginPage, addHidden: true}, {section: mainPage}];
   updateElement(sections);
-  //updateManagerPage();
 }
-
-// function updateManagerPage() {
-
-// }
 
 function displayCustomerPage() {
   const sections = [{section: loginPage, addHidden: true}, {section: mainPage}, {section: dashboardRightSide, addHide: true}];
   updateElement(sections);
+}
+
+function updateWelcome() {
+  const welcome = document.querySelector('h2');
+  welcome.innerText = `Welcome back ${currentUser.name}`;
 }
