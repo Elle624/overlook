@@ -67,6 +67,18 @@ describe('BookingsRepo Class', () => {
 
       expect(result).to.deep.equal([booking1]);
     })
+
+    it('should be able to find a booking by inquery', () => {
+      const result = bookingsRepo.findBooking('2020/02/20', 20);
+
+      expect(result).to.deep.equal(booking2);
+    })
+
+    it('should be able to remove a booking', () => {
+      bookingsRepo.removeBooking('7fwrwofi7khl6t1');
+
+      expect(bookingsRepo.bookings).to.deep.equal([booking1, booking2]);
+    })
   })
 
 })
