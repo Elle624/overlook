@@ -36,6 +36,8 @@ const guestSearchBtn = document.querySelector('.search-customer-btn');
 const guestSearchInput = document.querySelector('#guest');
 const displayGuestDataSection = document.querySelector('.display-guest-data');
 const bookBtn = document.querySelector('.book-btn');
+const deleteBookingInputs = document.querySelectorAll('.delete-input input');
+const deleteBookingBtn = document.querySelector('.delete-booking-btn');
 
 //event listener
 loginBtn.addEventListener('click', checkLoginInputs);
@@ -43,7 +45,8 @@ selectDateBtn.addEventListener('click', displayAvailableRooms);
 guestSearchBtn.addEventListener('click', displayGuestInfo);
 listRoomsSection.addEventListener('change', displayFilterRooms);
 displayRoomsSection.addEventListener('click', selectARoom);
-bookBtn.addEventListener('click', makeABooking);
+bookBtn.addEventListener('click', makeBooking);
+deleteBookingBtn.addEventListener('click', deleteBooking);
 
 Promise.all([apiCalls.getUserData(), apiCalls.getRoomData(), apiCalls.getBookingData()])
   .then(data => {
@@ -52,9 +55,9 @@ Promise.all([apiCalls.getUserData(), apiCalls.getRoomData(), apiCalls.getBooking
     }, {})
     instanciatate(allData);
     updateTodayDate();
-    //apiCalls.deleteBookingData({id: 1604636426682})
-    currentUser = new Manager('Elle');
-    displayManagerPage();
+    //apiCalls.deleteBookingData({id: 1604641948033})
+    // currentUser = new Manager('Elle');
+    // displayManagerPage();
   })
 
 function instanciatate(dataSet) {
@@ -181,13 +184,16 @@ function selectARoom() {
   newBooking.roomNumber = parseInt(event.target.className);
 }
 
-function makeABooking() {
+function makeBooking() {
   if (currentCustomer && selectDate > today) {
     newBooking.userID = currentCustomer.id;
     newBooking.date = selectDate;
-    apiCalls.addBookingData(newBooking);
-    bookingsRepo.bookings.push(new Booking(newBooking.id, newBooking.userID, newBooking.date, newBooking.roomNumber));
-    updateGuestInfo();
+    apiCalls.addBookingData(newBooking)
+      .then(() => {
+        bookingsRepo.bookings.push(new Booking(newBooking.id, newBooking.userID, newBooking.date, newBooking.roomNumber));
+        updateGuestInfo()
+      })
+    
   } else {
     domUpdate.displayErrorMsg();
   }
@@ -211,6 +217,31 @@ function updateGuestInfo() {
   const bookings = bookingsRepo.filterBookingsByRef('userID', currentCustomer.id);
   const totalCost = currentCustomer.returnUserRevenue(currentCustomer.id, bookings, rooms) 
   domUpdate.updateGuestInfo(displayGuestDataSection, bookings, totalCost);
+}
+
+function deleteBooking() {
+  const inquery = checkDeleteBookingInputs();
+  if (inquery && currentCustomer && selectDate > today) {
+    apiCalls.deleteBookingData({id: inquery.id})
+      .then(() => {
+        udpateDeleteBooking(inquery.id);
+        updateGuestInfo();
+      })
+  } else {
+    domUpdate.displayErrorMsg();
+  }
+}
+
+function checkDeleteBookingInputs() {
+  selectDate = deleteBookingInputs[0].value.split('-').join('/');
+  const roomNum = parseInt(deleteBookingInputs[1].value);
+  return bookingsRepo.findBooking(selectDate, roomNum);
+}
+
+function udpateDeleteBooking(id) {
+  deleteBookingInputs[0].value = '';
+  deleteBookingInputs[1].value = '';
+  bookingsRepo.removeBooking(id)
 }
 
 /////////////////////////Manager site above///////////////////////////
