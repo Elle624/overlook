@@ -92,7 +92,8 @@ button {
 .left-side {
   background-color: rgba(195, 227, 249, 0.4);
   width: 30%;
-  height: 100%;
+  height: 50vh;
+  overflow: scroll;
   }
 
 .today-data {
@@ -100,11 +101,15 @@ button {
 }
 
 .book-room {
-  margin-top: 2em;
+  margin: 2em 7em;
 }
 
 #calendar-input {
   width: 10em;
+}
+
+.select-date-btn {
+  margin-left: 2em;
 }
 
 .label-name {
@@ -139,10 +144,12 @@ p {
 }
 
 .guest-data {
-  margin-right: 5em;
+  margin: 0em 5em 0em 3em;
   padding-right: 5em;
   border-right:rgba(249, 220, 195, 0.2) 0.5em dashed;
   width: 45em;
+  height: 50vh;
+  overflow: scroll;
 }
 
 .guest {

@@ -10,9 +10,9 @@
       <h1>Welcome to Overlook</h1>
       <form class="login-form">
         <label for="username"></label>
-        <input class="login-input" type="text" id="username" placeholder="username">
+        <input type="text" id="username" class="login-input" placeholder="username">
         <label for="password"></label> 
-        <input class="login-input" type="text" id="password" placeholder="password">
+        <input type="text" id="password" class="login-input" placeholder="password">
         <button type="button" id="register-btn">Login</button>
       </form>
     </section>
@@ -21,42 +21,41 @@
       <section class="dashboard">
         <section class="left-side">
           <section class="today-data">
-            <h3 class="available-room">Available rooms today: 10</h3>
+            <!-- <h3 class="available-room">Available rooms today: 10</h3>
             <h3 class="today-revenue">Today's total revenue: $1000</h3>
-            <h3 class="today-occupation">Room Occupation rate: 20%</h3>
+            <h3 class="today-occupation">Room Occupation rate: 20%</h3> -->
           </section>
           <section class="book-room">
-            <label class="label-name" for="calendar-input">Please select a date</label>
+            <label class="label-name" for="calendar-input">Please enter guest's name on the right before selecting a date to make a booking</label>
             <input type="date" min="2020-01-01" name="calendar" id="calendar-input">
+            <button class="select-date-btn">Search</button>
           </section>
-          <section class="list-rooms hide">
-            <select class="label-name">Filter by type
-              <option>select</option>
-              <option>type1</option>
+          <section class="list-rooms hidden">
+            <select class="list-types label-name">Filter by type
+              <!-- <option disabled selected value>-- select --</option>
+              <option>type1</option> -->
             </select>
-            <p tabindex="0">room1</p>
-            <p tabindex="0">room2</p>
-            <p tabindex="0">room3</p>
+            <section class="display-rooms">
+              <!-- <p tabindex="0">room1</p>
+              <p tabindex="0">room2</p>
+              <p tabindex="0">room3</p> -->
+            </section>
             <button class="book-btn">Book</button>
-          </section>
-          <section class="no-room hide">
-            <p>We are very sorry!!! Currently there are no rooms available for that day, please try a different date!</p>
           </section>
         </section>
         <section class="right-side">
           <section class="guest-data">
             <label class="label-name" for="guest">Please enter guest's name</label>
-            <input type="text" placeholder="First name  Last name" id="guest">
-            <section class="display-guest-data">
-              <h3 class="guest guest-booking">Booking History</h3>
+            <input type="text" placeholder="e.g Isabel Li" id="guest">
+            <button class="search-customer-btn">Enter</button>
+            <section class="display-guest-data hide">
+              <!-- <h3 class="guest guest-booking">Booking History</h3>
               <p>2020/03/02 room 2</p>
-              <h3 class="guest guest-cost">Total Cost: $2000</h3>
+              <h3 class="guest guest-cost">Total Cost: $2000</h3> -->
             </section>
           </section>
           <section class="delete-booking">
             <form class="delete-input">
-              <!-- <label class="label-name" for="date">Please enter guest name</label>
-              <input type="text" placeholder="First name  Last name"> -->
               <label class="label-name" for="delete-date">Please enter a date</label>
               <input type="date" min="2020-01-01" id="delete-date">
               <label class="label-name" for="room-num">Please enter room number</label>
@@ -64,7 +63,6 @@
             </form>
             <button class="delete-booking-btn">Delete Booking</button>
           </section>
-          
         </section>
       </section>
     </section>
