@@ -5,8 +5,6 @@ const getData = (path) => {
 }
 
 const updateData = (path, action, data) => {
-  console.log(path, action, data);
-  
   return fetch(path, {
       method: action,
       headers: {
