@@ -52,7 +52,7 @@ Promise.all([apiCalls.getUserData(), apiCalls.getRoomData(), apiCalls.getBooking
     }, {})
     instanciatate(allData);
     updateTodayDate();
-    //apiCalls.deleteBookingData({id: 1604632213653})
+    //apiCalls.deleteBookingData({id: 1604636426682})
     currentUser = new Manager('Elle');
     displayManagerPage();
   })
@@ -67,7 +67,7 @@ function instanciatate(dataSet) {
 
 function updateTodayDate() {
   const year = new Date().getFullYear();
-  let month = new Date().getMonth();
+  let month = new Date().getMonth()+1;
   let date = new Date().getDate();
   month = month < 10 ? `0${month}` : month
   date = date < 10 ? `0${date}` : date
@@ -178,7 +178,7 @@ function filterAvailableRooms() {
 }
 
 function selectARoom() {
-  newBooking.roomNumber = event.target.className;
+  newBooking.roomNumber = parseInt(event.target.className);
 }
 
 function makeABooking() {
@@ -188,6 +188,8 @@ function makeABooking() {
     apiCalls.addBookingData(newBooking);
     bookingsRepo.bookings.push(new Booking(newBooking.id, newBooking.userID, newBooking.date, newBooking.roomNumber));
     updateGuestInfo();
+  } else {
+    domUpdate.displayErrorMsg();
   }
 }
 
@@ -207,8 +209,8 @@ function displayGuestInfo() {
 
 function updateGuestInfo() {
   const bookings = bookingsRepo.filterBookingsByRef('userID', currentCustomer.id);
-    const totalCost = currentCustomer.returnUserRevenue(currentCustomer.id, bookings, rooms) 
-    domUpdate.updateGuestInfo(displayGuestDataSection, bookings, totalCost);
+  const totalCost = currentCustomer.returnUserRevenue(currentCustomer.id, bookings, rooms) 
+  domUpdate.updateGuestInfo(displayGuestDataSection, bookings, totalCost);
 }
 
 /////////////////////////Manager site above///////////////////////////
