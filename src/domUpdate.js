@@ -14,16 +14,25 @@ const domUpdate = {
     section.innerHTML =
     `
     <section class="display-rooms">${this.listRooms(rooms)}
-    <button class="book-btn">Book</button>
-    </section>
     `
+  },
+
+  listRooms: (rooms) => {
+    let section = '';
+    rooms.forEach(room => {
+      section +=
+      `
+      <p class="${room}" tabindex="0">room ${room}</p>
+      `
+    })
+    return section;
   },
 
   displayTypes: function (section, allTypes) {
     section.innerHTML = '';
     section.innerHTML =
     `
-    <option disabled selected value>-- select --</option>
+    <option disabled selected value>-- select type --</option>
     ${this.updateTypes(allTypes)}
     `
   },
@@ -39,19 +48,12 @@ const domUpdate = {
     return section;
   },
 
-  listRooms: (rooms) => {
-    let section = '';
-    rooms.forEach(room => {
-      section +=
-      `
-      <p tabindex="0">room ${room}</p>
-      `
-    })
-    return section;
-  },
-
   displayAppologyMsg: () => {
     window.alert('We are very sorry!!! Currently there are no rooms available for that type/day, please try a different type/date!')
+  },
+
+  displayErrorMsg: () => {
+    window.alert('Sorry! Can not operate on a past date or without choosing a user, please try again! ')
   },
 
   updateGuestInfo: function (section, bookings, cost) {
