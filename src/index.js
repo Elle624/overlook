@@ -15,8 +15,8 @@ import domUpdate from './domUpdate';
 // import './images/turing-logo.png'
 
 //Gloabel Variable
-const todayDate = '2020/02/12';
-let currentUser, customers, rooms, bookings, roomsRepo, bookingsRepo; let selectDate, currentCustomer;
+let today, selectDate, currentCustomer, currentUser;
+let customers, rooms, bookings, roomsRepo, bookingsRepo; 
 let newBooking = {userID:1, date: '', roomNumber: 1};
 
 //Query Selector
@@ -51,6 +51,7 @@ Promise.all([apiCalls.getUserData(), apiCalls.getRoomData(), apiCalls.getBooking
       return dataSet = {...dataSet, ...eachDataset}
     }, {})
     instanciatate(allData);
+    updateTodayDate();
     //apiCalls.deleteBookingData({id: 1604632213653})
     currentUser = new Manager('Elle');
     displayManagerPage();
@@ -62,6 +63,15 @@ function instanciatate(dataSet) {
   roomsRepo = new RoomsRepo(rooms);
   bookings = dataSet.bookings.map(booking => new Booking(booking.id, booking.userID, booking.date, booking.roomNumber, booking.roomServiceCharges));
   bookingsRepo = new BookingsRepo(bookings);
+}
+
+function updateTodayDate() {
+  const year = new Date().getFullYear();
+  let month = new Date().getMonth();
+  let date = new Date().getDate();
+  month = month < 10 ? `0${month}` : month
+  date = date < 10 ? `0${date}` : date
+  today = `${year}/${month}/${date}`;
 }
 
 function checkLoginInputs() {
@@ -126,9 +136,9 @@ function displayManagerPage() {
 }
 
 function displayManagerTodayData() {
-  const bookedRooms = bookingsRepo.returnBookedRoomsNum('date', todayDate);
+  const bookedRooms = bookingsRepo.returnBookedRoomsNum('date', today);
   const openRooms = roomsRepo.returnAvailableRooms(bookedRooms);
-  const revenue = currentUser.returnTodayRevenue(todayDate, bookings, rooms);
+  const revenue = currentUser.returnTodayRevenue(today, bookings, rooms);
   domUpdate.updateManagerTodayData(todayDataSection, (openRooms.length), revenue, ((bookedRooms.length)/25));
 }
 
@@ -172,7 +182,7 @@ function selectARoom() {
 }
 
 function makeABooking() {
-  if (currentCustomer) {
+  if (currentCustomer && selectDate > today) {
     newBooking.userID = currentCustomer.id;
     newBooking.date = selectDate;
     apiCalls.addBookingData(newBooking);
