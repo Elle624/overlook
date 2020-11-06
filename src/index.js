@@ -16,7 +16,8 @@ import domUpdate from './domUpdate';
 
 //Gloabel Variable
 const todayDate = '2020/02/12';
-let currentUser, customers, rooms, bookings, roomsRepo, bookingsRepo;
+let currentUser, customers, rooms, bookings, roomsRepo, bookingsRepo; let selectDate, currentCustomer;
+let newBooking = {userID:1, date: '', roomNumber: 1};
 
 //Query Selector
 const loginInputs = document.querySelectorAll('.login-input');
@@ -29,19 +30,20 @@ const todayDataSection = document.querySelector('.today-data');
 const listRoomsSection = document.querySelector('.list-rooms');
 const calendarInput = document.querySelector('#calendar-input');
 const selectDateBtn = document.querySelector('.select-date-btn');
-const displayRooms = document.querySelector('.display-rooms');
+const displayRoomsSection = document.querySelector('.display-rooms');
 const listTypes = document.querySelector('.list-types');
 const guestSearchBtn = document.querySelector('.search-customer-btn');
 const guestSearchInput = document.querySelector('#guest');
 const displayGuestDataSection = document.querySelector('.display-guest-data');
+const bookBtn = document.querySelector('.book-btn');
 
 //event listener
 loginBtn.addEventListener('click', checkLoginInputs);
 selectDateBtn.addEventListener('click', displayAvailableRooms);
 guestSearchBtn.addEventListener('click', displayGuestInfo);
-listRoomsSection.addEventListener('change', displayFilterRooms)
-//listRoomsSection.addEventListener('change', filterAvailableRooms)
-//function
+listRoomsSection.addEventListener('change', displayFilterRooms);
+displayRoomsSection.addEventListener('click', selectARoom);
+bookBtn.addEventListener('click', makeABooking);
 
 Promise.all([apiCalls.getUserData(), apiCalls.getRoomData(), apiCalls.getBookingData()])
   .then(data => {
@@ -49,7 +51,8 @@ Promise.all([apiCalls.getUserData(), apiCalls.getRoomData(), apiCalls.getBooking
       return dataSet = {...dataSet, ...eachDataset}
     }, {})
     instanciatate(allData);
-    currentUser = new Manager('Elle')
+    //apiCalls.deleteBookingData({id: 1604632213653})
+    currentUser = new Manager('Elle');
     displayManagerPage();
   })
 
@@ -130,12 +133,12 @@ function displayManagerTodayData() {
 }
 
 function displayAvailableRooms() {  
-  const selectDate = calendarInput.value.split('-').join('/');
+  selectDate = calendarInput.value.split('-').join('/');
   const bookedRooms = bookingsRepo.returnBookedRoomsNum('date', selectDate);
   const openRooms = roomsRepo.returnAvailableRooms(bookedRooms);
   const types = returnAllRoomTypes();
   domUpdate.displayTypes(listTypes, types);
-  domUpdate.updateAvailableRooms(displayRooms, openRooms);
+  domUpdate.updateAvailableRooms(displayRoomsSection, openRooms);
   updateElement([{section: listRoomsSection}]);
 }
 
@@ -151,7 +154,7 @@ function returnAllRoomTypes() {
 function displayFilterRooms() {
   const filterRooms = filterAvailableRooms();
   if (filterRooms.length !== 0) {
-    domUpdate.updateAvailableRooms(displayRooms, filterRooms);
+    domUpdate.updateAvailableRooms(displayRoomsSection, filterRooms);
   } else {
     domUpdate.displayAppologyMsg();
   }
@@ -159,10 +162,23 @@ function displayFilterRooms() {
 
 function filterAvailableRooms() {
   const type = event.target.value;
-  const selectDate = calendarInput.value.split('-').join('/');
   const bookedRooms = bookingsRepo.returnBookedRoomsNum('date', selectDate);
   const openRooms = roomsRepo.returnAvailableRooms(bookedRooms);
   return roomsRepo.filterRoomsByType(type, openRooms);
+}
+
+function selectARoom() {
+  newBooking.roomNumber = event.target.className;
+}
+
+function makeABooking() {
+  if (currentCustomer) {
+    newBooking.userID = currentCustomer.id;
+    newBooking.date = selectDate;
+    apiCalls.addBookingData(newBooking);
+    bookingsRepo.bookings.push(new Booking(newBooking.id, newBooking.userID, newBooking.date, newBooking.roomNumber));
+    updateGuestInfo();
+  }
 }
 
 function returnGuestInfo() {
@@ -170,15 +186,19 @@ function returnGuestInfo() {
 }
 
 function displayGuestInfo() {
-  const customer = returnGuestInfo();
-  if (customer) {
-    const bookings = bookingsRepo.filterBookingsByRef('userID', customer.id);
-    const totalCost = customer.returnUserRevenue(customer.id, bookings, rooms) 
-    domUpdate.updateGuestInfo(displayGuestDataSection, bookings, totalCost)
+  currentCustomer = returnGuestInfo();  
+  if (currentCustomer) {
+    updateGuestInfo();
     updateElement([{section: displayGuestDataSection}]);
   } else {
     updateElement([{section: displayGuestDataSection, addHidden: true}]);
   }
+}
+
+function updateGuestInfo() {
+  const bookings = bookingsRepo.filterBookingsByRef('userID', currentCustomer.id);
+    const totalCost = currentCustomer.returnUserRevenue(currentCustomer.id, bookings, rooms) 
+    domUpdate.updateGuestInfo(displayGuestDataSection, bookings, totalCost);
 }
 
 /////////////////////////Manager site above///////////////////////////
