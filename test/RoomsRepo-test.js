@@ -38,15 +38,15 @@ describe('RooomsRepo Class', () => {
   })
   describe('methods', () => {
     it('should filter rooms by type', () => {
-      const result = roomsRepo.filterRoomsByType('suit', [room1, room2]);
+      const result = roomsRepo.filterRoomsByType('suit', [1, 2]);
       
-      expect(result).to.deep.equal([room2]);
+      expect(result).to.deep.equal([2]);
     })
 
     it('should filter rooms by other type', () => {
-      const result = roomsRepo.filterRoomsByType('single', [room1, room2, room3]);
+      const result = roomsRepo.filterRoomsByType('single', [1, 2, 3]);
       
-      expect(result).to.deep.equal([room1, room3]);
+      expect(result).to.deep.equal([1, 3]);
     })
 
     it('should return available room#', () => {
