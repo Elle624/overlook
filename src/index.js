@@ -189,8 +189,8 @@ function makeBooking() {
     newBooking.userID = currentCustomer.id;
     newBooking.date = selectDate;
     apiCalls.addBookingData(newBooking)
-      .then(() => {
-        bookingsRepo.bookings.push(new Booking(newBooking.id, newBooking.userID, newBooking.date, newBooking.roomNumber));
+      .then((data) => {
+        bookingsRepo.bookings.push(new Booking(data.id, data.userID, data.date, data.roomNumber));
         updateGuestInfo()
       })
     
