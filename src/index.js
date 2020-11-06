@@ -30,6 +30,7 @@ const listRoomsSection = document.querySelector('.list-rooms');
 const calendarInput = document.querySelector('#calendar-input');
 const selectDateBtn = document.querySelector('.select-date-btn');
 const displayRooms = document.querySelector('.display-rooms');
+const listTypes = document.querySelector('.list-types');
 const guestSearchBtn = document.querySelector('.search-customer-btn');
 const guestSearchInput = document.querySelector('#guest');
 const displayGuestDataSection = document.querySelector('.display-guest-data');
@@ -38,7 +39,8 @@ const displayGuestDataSection = document.querySelector('.display-guest-data');
 loginBtn.addEventListener('click', checkLoginInputs);
 selectDateBtn.addEventListener('click', displayAvailableRooms);
 guestSearchBtn.addEventListener('click', displayGuestInfo);
-
+listRoomsSection.addEventListener('change', displayFilterRooms)
+//listRoomsSection.addEventListener('change', filterAvailableRooms)
 //function
 
 Promise.all([apiCalls.getUserData(), apiCalls.getRoomData(), apiCalls.getBookingData()])
@@ -132,7 +134,8 @@ function displayAvailableRooms() {
   const bookedRooms = bookingsRepo.returnBookedRoomsNum('date', selectDate);
   const openRooms = roomsRepo.returnAvailableRooms(bookedRooms);
   const types = returnAllRoomTypes();
-  domUpdate.updateAvailableRooms(listRoomsSection, openRooms, types);
+  domUpdate.displayTypes(listTypes, types);
+  domUpdate.updateAvailableRooms(displayRooms, openRooms);
   updateElement([{section: listRoomsSection}]);
 }
 
@@ -143,6 +146,23 @@ function returnAllRoomTypes() {
     }
     return types
   }, [])
+}
+
+function displayFilterRooms() {
+  const filterRooms = filterAvailableRooms();
+  if (filterRooms.length !== 0) {
+    domUpdate.updateAvailableRooms(displayRooms, filterRooms);
+  } else {
+    domUpdate.displayAppologyMsg();
+  }
+}
+
+function filterAvailableRooms() {
+  const type = event.target.value;
+  const selectDate = calendarInput.value.split('-').join('/');
+  const bookedRooms = bookingsRepo.returnBookedRoomsNum('date', selectDate);
+  const openRooms = roomsRepo.returnAvailableRooms(bookedRooms);
+  return roomsRepo.filterRoomsByType(type, openRooms);
 }
 
 function returnGuestInfo() {

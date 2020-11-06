@@ -9,25 +9,31 @@ const domUpdate = {
     `
   },
 
-  updateAvailableRooms: function (section, rooms, allTypes) {
+  updateAvailableRooms: function (section, rooms) {
     section.innerHTML = '';
     section.innerHTML =
-    `<select class="label-name">Filter by type
-      <option>select type</option>
-      ${this.listTypes(allTypes)}
-    </select>
+    `
     <section class="display-rooms">${this.listRooms(rooms)}
     <button class="book-btn">Book</button>
     </section>
     `
   },
 
-  listTypes: allTypes => {
-    let section = '';
+  displayTypes: function (section, allTypes) {
+    section.innerHTML = '';
+    section.innerHTML =
+    `
+    <option disabled selected value>-- select --</option>
+    ${this.updateTypes(allTypes)}
+    `
+  },
+
+  updateTypes: allTypes => {
+    let section = ''
     allTypes.forEach(type => {
       section +=
       `
-      <option id="${type}">${type}</option>
+      <option>${type}</option>
       `
     })
     return section;
@@ -42,6 +48,10 @@ const domUpdate = {
       `
     })
     return section;
+  },
+
+  displayAppologyMsg: () => {
+    window.alert('We are very sorry!!! Currently there are no rooms available for that type/day, please try a different type/date!')
   },
 
   updateGuestInfo: function (section, bookings, cost) {
