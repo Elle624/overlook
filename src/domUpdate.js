@@ -79,7 +79,21 @@ const domUpdate = {
       `
     });
     return section;
+  },
+
+  updateCustomerView: function (section1, section2, bookings, cost) {
+    section2.innerText = 'Please enter or choose a date'
+    section1.innerHTML = '';
+    section1.innerHTML =
+    `
+    <section class="display-guest-data">
+      <h3 class="guest guest-booking">Booking History</h3>
+      <section>${this.displayBookings(bookings)}</section>
+      <h3 class="guest guest-cost">Total Cost: $${cost.toFixed(2)}</h3> 
+    </section>
+    `
   }
+
 }
 
 export default domUpdate
