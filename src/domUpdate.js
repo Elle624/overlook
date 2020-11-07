@@ -1,5 +1,8 @@
 const domUpdate = {
-  
+  updateWelcomeMsg: (title, user) => {
+    title.innerText = `Welcome back ${user.name}`;
+  },
+
   updateManagerTodayData: (section, rooms, revenue, occupation) => {
     section.innerHTML = '';
     section.innerHTML =
