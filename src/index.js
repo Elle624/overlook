@@ -29,6 +29,7 @@ const dashboardRightSide = document.querySelector('.right-side');
 const todayDataSection = document.querySelector('.today-data');
 const listRoomsSection = document.querySelector('.list-rooms');
 const calendarInput = document.querySelector('#calendar-input');
+const calendarLabel = document.querySelector('.calendar-label');
 const selectDateBtn = document.querySelector('.select-date-btn');
 const displayRoomsSection = document.querySelector('.display-rooms');
 const listTypes = document.querySelector('.list-types');
@@ -55,9 +56,13 @@ Promise.all([apiCalls.getUserData(), apiCalls.getRoomData(), apiCalls.getBooking
     }, {})
     instanciatate(allData);
     updateTodayDate();
-    //apiCalls.deleteBookingData({id: 1604641948033})
+    displayPage()
+    //apiCalls.deleteBookingData({id: 1604713186375})
     // currentUser = new Manager('Elle');
     // displayManagerPage();
+    // currentUser = updateCurrentCustomer(50);
+    // updateWelcome()
+    // displayCustomerPage()
   })
 
 function instanciatate(dataSet) {
@@ -191,9 +196,16 @@ function makeBooking() {
     apiCalls.addBookingData(newBooking)
       .then((data) => {
         bookingsRepo.bookings.push(new Booking(data.id, data.userID, data.date, data.roomNumber));
-        updateGuestInfo()
+        updateGuestInfo();
       })
-    
+  } else if (currentUser instanceof Customer && selectDate > today) {
+    newBooking.userID = currentUser.id;
+    newBooking.date = selectDate;
+    apiCalls.addBookingData(newBooking)
+      .then((data) => {
+        bookingsRepo.bookings.push(new Booking(data.id, data.userID, data.date, data.roomNumber));
+        updateCustomerPage();
+      })
   } else {
     domUpdate.displayErrorMsg();
   }
@@ -246,23 +258,28 @@ function udpateDeleteBooking(id) {
 
 /////////////////////////Manager site above///////////////////////////
 
+function updateWelcome() {
+  const welcome = document.querySelector('h2');
+  domUpdate.updateWelcomeMsg(welcome, currentUser);
+}
+
 function displayCustomerPage() {
-  const sections = [{section: loginPage, addHidden: true}, {section: mainPage}, {section: dashboardRightSide, addHide: true}];
+  const sections = [{section: loginPage, addHidden: true}, {section: mainPage}];
   updateElement(sections);
   updateCustomerPage();
 }
 
-function updateWelcome() {
-  const welcome = document.querySelector('h2');
-  welcome.innerText = `Welcome back ${currentUser.name}`;
-}
-//hard code in
 function updateCustomerPage() {
-  todayDataSection.innerHTML = '';
-  todayDataSection.innerHTML += 
-  `
-  <h3 class="guest guest-booking">Booking History</h3>
-  <p>2020/03/02 room 2</p>
-  <h3 class="guest guest-cost">Total Cost: $2000</h3>
-  `
+  const bookings = bookingsRepo.filterBookingsByRef('userID', currentUser.id);
+  console.log(bookings);
+  const totalCost = currentUser.returnUserRevenue(currentUser.id, bookings, rooms) 
+  domUpdate.updateCustomerView(dashboardRightSide, calendarLabel, bookings, totalCost);
 }
+
+  // todayDataSection.innerHTML = '';
+  // todayDataSection.innerHTML += 
+  // `
+  // <h3 class="guest guest-booking">Booking History</h3>
+  // <p>2020/03/02 room 2</p>
+  // <h3 class="guest guest-cost">Total Cost: $2000</h3>
+  // `

@@ -84,6 +84,7 @@ button {
 .main-page {
   background: url("../images/background.png") center / 100% 100% no-repeat;
   height: 100%;
+  width: 100%;
 }
 .dashboard {
   margin: 10em 10em;
@@ -132,7 +133,9 @@ p {
   background-color:rgba(195, 227, 249, 0.6);
   margin-left: 10%;
   width: 60%;
+  height: 50vh;
   display: flex;
+  overflow: scroll;
 }
 
 .delete-booking {
@@ -148,7 +151,7 @@ p {
   padding-right: 5em;
   border-right:rgba(249, 220, 195, 0.2) 0.5em dashed;
   width: 45em;
-  height: 50vh;
+  // height: 50vh;
   overflow: scroll;
 }
 
