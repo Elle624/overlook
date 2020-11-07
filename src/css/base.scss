@@ -6,6 +6,8 @@
   box-sizing: border-box;
 }
 
+@import 'login';
+
 .hidden {
   display: none;
 }
@@ -45,14 +47,14 @@ h3 {
   color: #0d25ad;
 }
 
-.login-form {
-  margin-top: 10em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1em;
-  border: rgba(210, 181, 216, 0.4) 0.1em solid;
-}
+// .login-form {
+//   margin-top: 10em;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   padding: 1em;
+//   border: rgba(210, 181, 216, 0.4) 0.1em solid;
+// }
 
 input {
   display: block;
