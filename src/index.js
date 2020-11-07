@@ -56,12 +56,13 @@ Promise.all([apiCalls.getUserData(), apiCalls.getRoomData(), apiCalls.getBooking
     }, {})
     instanciatate(allData);
     updateTodayDate();
+    displayPage()
     //apiCalls.deleteBookingData({id: 1604713186375})
     // currentUser = new Manager('Elle');
     // displayManagerPage();
-    currentUser = updateCurrentCustomer(50);
-    updateWelcome()
-    displayCustomerPage()
+    // currentUser = updateCurrentCustomer(50);
+    // updateWelcome()
+    // displayCustomerPage()
   })
 
 function instanciatate(dataSet) {
@@ -195,22 +196,19 @@ function makeBooking() {
     apiCalls.addBookingData(newBooking)
       .then((data) => {
         bookingsRepo.bookings.push(new Booking(data.id, data.userID, data.date, data.roomNumber));
-        updateGuestInfo()
+        updateGuestInfo();
       })
   } else if (currentUser instanceof Customer && selectDate > today) {
-    postAPI(currentUser);
+    newBooking.userID = currentUser.id;
+    newBooking.date = selectDate;
+    apiCalls.addBookingData(newBooking)
+      .then((data) => {
+        bookingsRepo.bookings.push(new Booking(data.id, data.userID, data.date, data.roomNumber));
+        updateCustomerPage();
+      })
   } else {
     domUpdate.displayErrorMsg();
   }
-}
-
-function postAPI(user) {
-  newBooking.userID = user.id;
-  newBooking.date = selectDate;
-  apiCalls.addBookingData(newBooking)
-    .then((data) => {
-      bookingsRepo.bookings.push(new Booking(data.id, data.userID, data.date, data.roomNumber));
-    })
 }
 
 function returnGuestInfo() {
