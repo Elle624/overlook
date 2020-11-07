@@ -1,7 +1,6 @@
 // This is the JavaScript entry file - your code begins here
 // Do not delete or rename this file ********
 import './css/base.scss';
-//import User from './User';
 import Manager from './Manager';
 import Customer from './Customer';
 import Room from './Room';
@@ -56,7 +55,6 @@ Promise.all([apiCalls.getUserData(), apiCalls.getRoomData(), apiCalls.getBooking
     }, {})
     instanciatate(allData);
     updateTodayDate();
-    displayPage()
     //apiCalls.deleteBookingData({id: 1604713186375})
     // currentUser = new Manager('Elle');
     // displayManagerPage();
@@ -83,6 +81,7 @@ function updateTodayDate() {
 }
 
 function checkLoginInputs() {
+  event.preventDefault();
   if (!areInputsFilled() && checkUsername() && checkPassword()) {
     displayPage();
   }
@@ -275,11 +274,3 @@ function updateCustomerPage() {
   const totalCost = currentUser.returnUserRevenue(currentUser.id, bookings, rooms) 
   domUpdate.updateCustomerView(dashboardRightSide, calendarLabel, bookings, totalCost);
 }
-
-  // todayDataSection.innerHTML = '';
-  // todayDataSection.innerHTML += 
-  // `
-  // <h3 class="guest guest-booking">Booking History</h3>
-  // <p>2020/03/02 room 2</p>
-  // <h3 class="guest guest-cost">Total Cost: $2000</h3>
-  // `
