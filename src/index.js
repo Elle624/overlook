@@ -11,7 +11,8 @@ import apiCalls from './apiCalls';
 import domUpdate from './domUpdate';
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
-// import './images/turing-logo.png'
+// import  './images/turing-logo.png'
+import './images/user-icon.png'
 
 //Gloabel Variable
 let today, selectDate, currentCustomer, currentUser;
@@ -269,7 +270,7 @@ function udpateDeleteBooking(id) {
 /////////////////////////Manager site above///////////////////////////
 
 function updateWelcome() {
-  const welcome = document.querySelector('h2');
+  const welcome = document.querySelector('.welcome');
   domUpdate.updateWelcomeMsg(welcome, currentUser);
 }
 
