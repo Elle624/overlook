@@ -40,16 +40,19 @@
           <section class="today-data">
           </section>
           <section class="book-room">
-            <label class="label-name calendar-label" for="calendar-input">Please enter guest's name on the right before selecting a date to make a booking</label>
+            <label class="label-name calendar-label" for="calendar-input">Please selecta date for booking</label>
             <input type="date" min="2020-01-01" name="calendar" id="calendar-input">
             <button class="select-date-btn">Search</button>
+            <p class="message hidden"></p>
           </section>
           <section class="list-rooms hidden">
+            
             <select class="list-types label-name">Filter by type
             </select>
             <section class="display-rooms">
             </section>
             <button class="book-btn">Book</button>
+            <p class="message hidden"></p>
           </section>
         </section>
         <section class="right-side">
@@ -62,12 +65,13 @@
           </section>
           <section class="delete-booking">
             <form class="delete-input">
-              <label class="label-name" for="delete-date">Please enter a date</label>
+              <label class="label-name" for="delete-date">Date</label>
               <input type="date" min="2020-01-01" id="delete-date">
-              <label class="label-name" for="room-num">Please enter room number</label>
+              <label class="label-name" for="room-num">Room Number</label>
               <input type="number" min="0" max="25" placeholder="e.g 6" id="room-num">
             </form>
             <button class="delete-booking-btn">Delete Booking</button>
+            <p class="message hidden"></p>
           </section>
         </section>
       </section>
