@@ -3,17 +3,17 @@ class BookingsRepo {
     this.bookings = bookings || [];
   }
 
-  returnBookedRoomsNum(ref, detail) {
+  returnBookedRoomsNum(referance, detail) {
     return this.bookings.reduce((bookedRoomsNum, booking) => {
-      if(booking[ref] === detail) {
+      if(booking[referance] === detail) {
         bookedRoomsNum.push(booking.roomNumber);
       }
       return bookedRoomsNum
     }, [])
   }
 
-  filterBookingsByRef(ref, detail) {
-    return this.bookings.filter(booking => booking[ref] === detail);
+  filterBookingsByRef(referance, detail) {
+    return this.bookings.filter(booking => booking[referance] === detail);
   }
 
   findBooking(date, num) {
