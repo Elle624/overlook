@@ -75,7 +75,8 @@ button {
 }
 
 .main-page {
-  background: url("../images/background.png") center / 100% 100% no-repeat;
+  // background: url("../images/background.png") center / 100% 100% no-repeat;
+  background-color: rgb(238, 238, 238);
   width: 100%;
   height: -webkit-fill-available;
   overflow-y: auto;
@@ -83,6 +84,7 @@ button {
 
 nav {
   display: flex;
+  background-color: #3e97de;
 }
 
 img {
@@ -99,8 +101,10 @@ img {
 .left-side {
   background-color: rgba(195, 227, 249, 0.4);
   width: 30%;
-  // height: 50vh;
-  // overflow: scroll;
+}
+
+.today-data {
+  margin-bottom: 2em;
 }
 
 .label-name {
@@ -119,8 +123,6 @@ p {
   margin-left: 10%;
   width: 60%;
   display: flex;
-  // height: 50vh;
-  // overflow: scroll;
 }
 
 .delete-booking {
@@ -140,7 +142,6 @@ p {
 .guest-data {
   background-color:rgba(195, 227, 249, 0.6);
   width: 30em;
-  // overflow: scroll;
 }
 
 #guest {
