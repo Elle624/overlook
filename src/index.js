@@ -32,13 +32,16 @@ const calendarLabel = document.querySelector('.calendar-label');
 const selectDateBtn = document.querySelector('.select-date-btn');
 const displayRoomsSection = document.querySelector('.display-rooms');
 const listTypes = document.querySelector('.list-types');
+const guestSection = document.querySelector('.guest-data');
 const guestSearchBtn = document.querySelector('.search-customer-btn');
 const guestSearchInput = document.querySelector('#guest');
 const displayGuestDataSection = document.querySelector('.display-guest-data');
 const bookBtn = document.querySelector('.book-btn');
+const deleteBookingSection = document.querySelector('.delete-booking');
 const deleteBookingInputs = document.querySelectorAll('.delete-input input');
 const deleteBookingBtn = document.querySelector('.delete-booking-btn');
-
+const messageSection = document.querySelectorAll('.message');
+//const messageSection = Array.from(message);
 //event listener
 loginBtn.addEventListener('click', checkLoginInputs);
 selectDateBtn.addEventListener('click', displayAvailableRooms);
@@ -114,18 +117,6 @@ function checkPassword() {
   return loginData[1].value === 'overlook2020';
 }
 
-function updateElement(elements) {
-  elements.forEach(element => {
-    if(element.addHidden) {
-      element.section.classList.add('hidden')
-    } else if (element.addHide) {
-      element.section.classList.add('hide')
-    } else {
-      element.section.classList.remove('hidden', 'hide')
-    }
-  });
-}
-
 function displayPage() {
   if (currentUser instanceof Manager) {
     displayManagerPage();
@@ -138,7 +129,7 @@ function displayPage() {
 /////////////////////////Manager site below///////////////////////////
 function displayManagerPage() { 
   const sections = [{section: loginPage, addHidden: true}, {section: mainPage}];
-  updateElement(sections);
+  domUpdate.updateElement(sections);
   displayManagerTodayData();
 }
 
@@ -151,12 +142,33 @@ function displayManagerTodayData() {
 
 function displayAvailableRooms() {  
   selectDate = calendarInput.value.split('-').join('/');
+  if (!selectDate || selectDate < today) {
+    displayMessage(0, 'error');
+    domUpdate.updateElement([{section: listRoomsSection, addHidden: true}]);
+  } else if (!currentCustomer && currentUser instanceof Manager) {
+    displayMessage(0, 'error');
+    domUpdate.updateElement([{section: listRoomsSection, addHidden: true}]);
+  } else {
+    updateAvailableRooms();
+    displayFilterTypes();
+    domUpdate.updateElement([{section: listRoomsSection}, {section: messageSection[0], addHidden: true}]);
+  }
+}
+
+function updateAvailableRooms() {
   const bookedRooms = bookingsRepo.returnBookedRoomsNum('date', selectDate);
   const openRooms = roomsRepo.returnAvailableRooms(bookedRooms);
+  domUpdate.updateAvailableRooms(displayRoomsSection, openRooms);
+}
+
+function displayFilterTypes() {
   const types = returnAllRoomTypes();
   domUpdate.displayTypes(listTypes, types);
-  domUpdate.updateAvailableRooms(displayRoomsSection, openRooms);
-  updateElement([{section: listRoomsSection}]);
+}
+
+function displayMessage(num, type) {
+  domUpdate.updateElement([{section: messageSection[num]}]);
+  domUpdate.displayMessage({section: messageSection[num], [type]: true});
 }
 
 function returnAllRoomTypes() {
@@ -171,9 +183,10 @@ function returnAllRoomTypes() {
 function displayFilterRooms() {
   const filterRooms = filterAvailableRooms();
   if (filterRooms.length !== 0) {
+    domUpdate.updateElement([{section: messageSection[1], addHidden: true}]);
     domUpdate.updateAvailableRooms(displayRoomsSection, filterRooms);
   } else {
-    domUpdate.displayAppologyMsg();
+    displayMessage(1, 'applogy');
   }
 }
 
@@ -189,25 +202,22 @@ function selectARoom() {
 }
 
 function makeBooking() {
-  if (currentCustomer && selectDate > today) {
+  newBooking.date = selectDate;
+  if (currentCustomer) {
     newBooking.userID = currentCustomer.id;
-    newBooking.date = selectDate;
     apiCalls.addBookingData(newBooking)
       .then((data) => {
         bookingsRepo.bookings.push(new Booking(data.id, data.userID, data.date, data.roomNumber));
         updateGuestInfo();
       })
-  } else if (currentUser instanceof Customer && selectDate > today) {
+  } else if (currentUser instanceof Customer) {
     newBooking.userID = currentUser.id;
-    newBooking.date = selectDate;
     apiCalls.addBookingData(newBooking)
       .then((data) => {
         bookingsRepo.bookings.push(new Booking(data.id, data.userID, data.date, data.roomNumber));
         updateCustomerPage();
       })
-  } else {
-    domUpdate.displayErrorMsg();
-  }
+  } 
 }
 
 function returnGuestInfo() {
@@ -215,12 +225,12 @@ function returnGuestInfo() {
 }
 
 function displayGuestInfo() {
-  currentCustomer = returnGuestInfo();  
+  currentCustomer = returnGuestInfo();   
   if (currentCustomer) {
     updateGuestInfo();
-    updateElement([{section: displayGuestDataSection}]);
+    domUpdate.updateElement([{section: displayGuestDataSection}]);
   } else {
-    updateElement([{section: displayGuestDataSection, addHidden: true}]);
+    domUpdate.updateElement([{section: displayGuestDataSection, addHidden: true}]);
   }
 }
 
@@ -233,13 +243,14 @@ function updateGuestInfo() {
 function deleteBooking() {
   const inquery = checkDeleteBookingInputs();
   if (inquery && currentCustomer && selectDate > today) {
+    domUpdate.updateElement([{section: messageSection[2], addHidden: true}]);
     apiCalls.deleteBookingData({id: inquery.id})
       .then(() => {
         udpateDeleteBooking(inquery.id);
         updateGuestInfo();
       })
   } else {
-    domUpdate.displayErrorMsg();
+    displayMessage(2, 'error')
   }
 }
 
@@ -263,14 +274,13 @@ function updateWelcome() {
 }
 
 function displayCustomerPage() {
-  const sections = [{section: loginPage, addHidden: true}, {section: mainPage}];
-  updateElement(sections);
+  const sections = [{section: loginPage, addHidden: true}, {section: mainPage}, {section: deleteBookingSection , addHidden: true}];
+  domUpdate.updateElement(sections);
   updateCustomerPage();
 }
 
 function updateCustomerPage() {
   const bookings = bookingsRepo.filterBookingsByRef('userID', currentUser.id);
-  console.log(bookings);
   const totalCost = currentUser.returnUserRevenue(currentUser.id, bookings, rooms) 
-  domUpdate.updateCustomerView(dashboardRightSide, calendarLabel, bookings, totalCost);
+  domUpdate.updateCustomerView(guestSection, calendarLabel, bookings, totalCost);
 }
