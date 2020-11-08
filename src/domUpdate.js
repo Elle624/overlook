@@ -1,4 +1,16 @@
 const domUpdate = {
+  updateElement: elements => {
+    elements.forEach(element => {
+      if (element.addHidden) {
+        element.section.classList.add('hidden')
+      } else if (element.addHide) {
+        element.section.classList.add('hide')
+      } else {
+        element.section.classList.remove('hidden', 'hide')
+      }
+    });
+  },
+
   updateWelcomeMsg: (title, user) => {
     title.innerText = `Welcome back ${user.name}`;
   },
@@ -52,13 +64,17 @@ const domUpdate = {
     return section;
   },
 
-  displayAppologyMsg: () => {
-    window.alert('We are very sorry!!! Currently there are no rooms available for that type/day, please try a different type/date!')
+  displayMessage: element => {
+    if (element.applogy) {
+      element.section.innerText = 'We are very sorry!!! Currently there are no rooms available for that type/day, please try a different type/date!'
+    } else if (element.error) {
+      element.section.innerText = 'Sorry! Can not operate on a past date or without choosing a user, please try again! '
+    } 
   },
 
-  displayErrorMsg: () => {
-    window.alert('Sorry! Can not operate on a past date or without choosing a user, please try again! ')
-  },
+  // displayErrorMsg: section  => {
+  //   section.innerText = 'Sorry! Can not operate on a past date or without choosing a user, please try again! '
+  // },
 
   updateGuestInfo: function (section, bookings, cost) {
     section.innerHTML = '';
