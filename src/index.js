@@ -25,7 +25,6 @@ const loginData = Array.from(loginInputs);
 const loginBtn = document.querySelector('#register-btn');
 const loginPage = document.querySelector('.login-page');
 const mainPage = document.querySelector('.main-page');
-const dashboardRightSide = document.querySelector('.right-side');
 const todayDataSection = document.querySelector('.today-data');
 const listRoomsSection = document.querySelector('.list-rooms');
 const calendarInput = document.querySelector('#calendar-input');
@@ -42,7 +41,7 @@ const deleteBookingSection = document.querySelector('.delete-booking');
 const deleteBookingInputs = document.querySelectorAll('.delete-input input');
 const deleteBookingBtn = document.querySelector('.delete-booking-btn');
 const messageSection = document.querySelectorAll('.message');
-//const messageSection = Array.from(message);
+
 //event listener
 loginBtn.addEventListener('click', checkLoginInputs);
 selectDateBtn.addEventListener('click', displayAvailableRooms);
@@ -60,11 +59,6 @@ Promise.all([apiCalls.getUserData(), apiCalls.getRoomData(), apiCalls.getBooking
     instanciatate(allData);
     updateTodayDate();
     //apiCalls.deleteBookingData({id: 1604713186375})
-    // currentUser = new Manager('Elle');
-    // displayManagerPage();
-    // currentUser = updateCurrentCustomer(50);
-    // updateWelcome()
-    // displayCustomerPage()
   })
 
 function instanciatate(dataSet) {
@@ -205,20 +199,19 @@ function selectARoom() {
 function makeBooking() {
   newBooking.date = selectDate;
   if (currentCustomer) {
-    newBooking.userID = currentCustomer.id;
-    apiCalls.addBookingData(newBooking)
-      .then((data) => {
-        bookingsRepo.bookings.push(new Booking(data.id, data.userID, data.date, data.roomNumber));
-        updateGuestInfo();
-      })
+    addBooking(currentCustomer);
   } else if (currentUser instanceof Customer) {
-    newBooking.userID = currentUser.id;
-    apiCalls.addBookingData(newBooking)
-      .then((data) => {
-        bookingsRepo.bookings.push(new Booking(data.id, data.userID, data.date, data.roomNumber));
-        updateCustomerPage();
-      })
+    addBooking(currentUser);
   } 
+}
+
+function addBooking(selectUser) {
+  newBooking.userID = selectUser.id;
+  apiCalls.addBookingData(newBooking)
+    .then((data) => {
+      bookingsRepo.bookings.push(new Booking(data.id, data.userID, data.date, data.roomNumber));
+      selectUser === currentCustomer ? updateGuestInfo() : updateCustomerPage();
+    })
 }
 
 function returnGuestInfo() {
