@@ -38,10 +38,6 @@ h1 {
   color: #79bfee;
 }
 
-// h2 {
-//   margin-top: 2em;
-// }
-
 h2 {
   font-size: 2.5em;
   color: #0d25ad;
@@ -80,8 +76,19 @@ button {
 
 .main-page {
   background: url("../images/background.png") center / 100% 100% no-repeat;
-  // height: 100%;
   width: 100%;
+  height: -webkit-fill-available;
+  overflow-y: auto;
+}
+
+nav {
+  display: flex;
+}
+
+img {
+  width: 3em;
+  height: 3em;
+  margin-right: 1em;
 }
 
 .dashboard {
@@ -111,8 +118,8 @@ p {
 .right-side {
   margin-left: 10%;
   width: 60%;
-  // height: 50vh;
   display: flex;
+  // height: 50vh;
   // overflow: scroll;
 }
 
