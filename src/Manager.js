@@ -7,12 +7,12 @@ class Manager extends User {
 
   returnTodayRevenue(date, bookings, rooms) {
     return bookings.reduce((totalCost, booking) => {
-        rooms.forEach(room => {
-          if (booking.date === date && booking.roomNumber === room.number) {
-            totalCost += room.costPerNight;
-          }
-        });
-        return totalCost;
+      rooms.forEach(room => {
+        if (booking.date === date && booking.roomNumber === room.number) {
+          totalCost += room.costPerNight;
+        }
+      });
+      return totalCost;
     }, 0)
   }
 

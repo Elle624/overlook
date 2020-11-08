@@ -5,7 +5,7 @@ class BookingsRepo {
 
   returnBookedRoomsNum(referance, detail) {
     return this.bookings.reduce((bookedRoomsNum, booking) => {
-      if(booking[referance] === detail) {
+      if (booking[referance] === detail) {
         bookedRoomsNum.push(booking.roomNumber);
       }
       return bookedRoomsNum

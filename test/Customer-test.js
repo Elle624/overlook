@@ -25,8 +25,8 @@ describe('Customer Class', () => {
       }
     ];
     rooms = [
-      {"number":7,"costPerNight":105.58}, 
-      {"number":20,"costPerNight":307.64}
+      {"number": 7, "costPerNight": 105.58}, 
+      {"number": 20, "costPerNight": 307.64}
     ];
   })
   describe('initialize', () => {

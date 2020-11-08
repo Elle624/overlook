@@ -7,12 +7,12 @@ class Customer extends User {
 
   returnUserRevenue(id, bookings, rooms) {
     return bookings.reduce((totalCost, booking) => {
-        rooms.forEach(room => {
-          if (booking.userID === id && booking.roomNumber === room.number) {
-            totalCost += room.costPerNight;
-          }
-        });
-        return totalCost;
+      rooms.forEach(room => {
+        if (booking.userID === id && booking.roomNumber === room.number) {
+          totalCost += room.costPerNight;
+        }
+      });
+      return totalCost;
     }, 0)
   }
 

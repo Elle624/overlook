@@ -21,7 +21,7 @@ const domUpdate = {
     `
     <h2 class="available-room">Available rooms today: ${rooms}</h2>
     <h2 class="today-revenue">Today's total revenue: $${revenue.toFixed(2)}</h2>
-    <h2 class="today-occupation">Room Occupation rate: ${occupation*100}%</h2>
+    <h2 class="today-occupation">Room Occupation rate: ${occupation*100}% </h2>
     `
   },
 
@@ -86,7 +86,7 @@ const domUpdate = {
     let section = '';
     bookings.forEach(booking => {
       const date = new Date(booking.date);
-      const chosenDate= date.toDateString().split(' ');
+      const chosenDate = date.toDateString().split(' ');
       section += 
       `
       <p>${chosenDate[1]} ${chosenDate[2]}, ${chosenDate[3]}  Room# ${booking.roomNumber}</p>

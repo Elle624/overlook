@@ -23,8 +23,8 @@ describe('Manager Class', () => {
       }
     ];
     rooms = [
-      {"number":6,"costPerNight":405.58}, 
-      {"number":7,"costPerNight":207.64}
+      {"number": 6, "costPerNight": 405.58}, 
+      {"number": 7, "costPerNight": 207.64}
     ];
   })
   describe('initialize', () => {
