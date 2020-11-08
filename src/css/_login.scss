@@ -1,13 +1,9 @@
 .login-form {
-  width: 33em;
-  height: 21em;
+  @include display(flex, 33em, 21em, 2em, 0.4em);
   margin: 5em auto 3em;
-  padding: 2em;
-  display: flex;
   flex-direction: column;
   align-items: center;
   background: #fffaf6;
-  border-radius: 0.4em;
   color: #7e7975;
   box-shadow:
       0 2px 2px rgba(0,0,0,0.2),        
@@ -28,18 +24,14 @@
 
 .login-form .float {
   width: 40%;
-  padding-top: 0.3em;
+  padding-top: $small;
 }
 
 .login-form input[type=text],
 .login-form input[type=password] {
-  font-size: 0.3em;
-  display: block;
-  width: 100%;
-  height: 3em;
-  padding: 0.5em;
+  @include display(block, 100%, 3em, 0.5em, 0.2em);
+  font-size: $small;
   border: 0.2em solid #ebe6e2;
-  border-radius: 0.2em;
   transition: all 0.3s ease-out;
   & :hover {
     border-color: #CCC;
@@ -47,10 +39,9 @@
 }
 
 .login-form input[type=submit] {
-  width: 7em;
-  height: 2em;
+  @include width-height(7em, 2em);
   box-shadow: inset 0 .1em rgba(255,255,255,0.3);
-  border-radius: 3px;
+  border-radius: $small;
   cursor: pointer;
   font-size: 0.5em;
   text-align: center;

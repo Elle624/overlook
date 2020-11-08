@@ -1,0 +1,12 @@
+@mixin display($style, $width, $height, $padding, $border-radius) {
+  display: $style;
+  width: $width;
+  height: $height;
+  padding: $padding;
+  border-radius: $border-radius;
+}
+
+@mixin width-height($width, $height) {
+  width: $width;
+  height: $height;
+}
