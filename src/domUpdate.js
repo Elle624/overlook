@@ -12,16 +12,16 @@ const domUpdate = {
   },
 
   updateWelcomeMsg: (title, user) => {
-    title.innerText = `Welcome back ${user.name}`;
+    title.innerText = `${user.name}`;
   },
 
   updateManagerTodayData: (section, rooms, revenue, occupation) => {
     section.innerHTML = '';
     section.innerHTML =
     `
-    <h3 class="available-room">Available rooms today: ${rooms}</h3>
-    <h3 class="today-revenue">Today's total revenue: $${revenue.toFixed(2)}</h3>
-    <h3 class="today-occupation">Room Occupation rate: ${occupation*100}%</h3>
+    <h2 class="available-room">Available rooms today: ${rooms}</h2>
+    <h2 class="today-revenue">Today's total revenue: $${revenue.toFixed(2)}</h2>
+    <h2 class="today-occupation">Room Occupation rate: ${occupation*100}%</h2>
     `
   },
 
@@ -80,9 +80,9 @@ const domUpdate = {
     section.innerHTML = '';
     section.innerHTML =
     `
-    <h3 class="guest guest-booking">Booking History</h3>
+    <h2 class="guest guest-booking">Booking History</h2>
     <section>${this.displayBookings(bookings)}</section>
-    <h3 class="guest guest-cost">Total Cost: ${cost.toFixed(2)}</h3>
+    <h2 class="guest guest-cost">Total Cost: ${cost.toFixed(2)}</h2>
     `
   },
 
@@ -106,9 +106,9 @@ const domUpdate = {
     section1.innerHTML =
     `
     <section class="display-guest-data">
-      <h3 class="guest guest-booking">Booking History</h3>
+      <h2 class="guest guest-booking">Booking History</h2>
       <section>${this.displayBookings(bookings)}</section>
-      <h3 class="guest guest-cost">Total Cost: $${cost.toFixed(2)}</h3> 
+      <h2 class="guest guest-cost">Total Cost: $${cost.toFixed(2)}</h2> 
     </section>
     `
   }
