@@ -60,5 +60,5 @@ describe('RooomsRepo Class', () => {
 
       expect(result).to.deep.equal([1, 2, 3]);
     })
-   })
+  })
 })

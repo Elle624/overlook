@@ -4,9 +4,9 @@ class User {
     this.name = name;
   }
 
-  returnUser(ref, users) {
-    ref.toLowerCase(); 
-    return users.find(user => user.id == ref || user.name === ref);
+  returnUser(referance, users) {
+    referance.toLowerCase(); 
+    return users.find(user => user.id == referance || user.name === referance);
   }
 
 }

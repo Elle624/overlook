@@ -1,5 +1,3 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
 import './css/base.scss';
 import Manager from './Manager';
 import Customer from './Customer';
@@ -9,40 +7,27 @@ import Booking from './Booking';
 import BookingsRepo from './BookingsRepo';
 import apiCalls from './apiCalls';
 import domUpdate from './domUpdate';
+import './images/user-icon.png'
 
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-// import './images/turing-logo.png'
-
-//Gloabel Variable
 let today, selectDate, currentCustomer, currentUser;
 let customers, rooms, bookings, roomsRepo, bookingsRepo; 
-let newBooking = {userID:1, date: '', roomNumber: 1};
+let newBooking = {userID: 1, date: '', roomNumber: 1};
 
-//Query Selector
 const loginInputs = document.querySelectorAll('.login-input');
 const loginData = Array.from(loginInputs); 
 const loginBtn = document.querySelector('#register-btn');
 const loginPage = document.querySelector('.login-page');
 const mainPage = document.querySelector('.main-page');
-const dashboardRightSide = document.querySelector('.right-side');
-const todayDataSection = document.querySelector('.today-data');
 const listRoomsSection = document.querySelector('.list-rooms');
-const calendarInput = document.querySelector('#calendar-input');
-const calendarLabel = document.querySelector('.calendar-label');
 const selectDateBtn = document.querySelector('.select-date-btn');
 const displayRoomsSection = document.querySelector('.display-rooms');
-const listTypes = document.querySelector('.list-types');
-const guestSection = document.querySelector('.guest-data');
 const guestSearchBtn = document.querySelector('.search-customer-btn');
-const guestSearchInput = document.querySelector('#guest');
 const displayGuestDataSection = document.querySelector('.display-guest-data');
 const bookBtn = document.querySelector('.book-btn');
-const deleteBookingSection = document.querySelector('.delete-booking');
 const deleteBookingInputs = document.querySelectorAll('.delete-input input');
 const deleteBookingBtn = document.querySelector('.delete-booking-btn');
 const messageSection = document.querySelectorAll('.message');
-//const messageSection = Array.from(message);
-//event listener
+
 loginBtn.addEventListener('click', checkLoginInputs);
 selectDateBtn.addEventListener('click', displayAvailableRooms);
 guestSearchBtn.addEventListener('click', displayGuestInfo);
@@ -55,15 +40,9 @@ Promise.all([apiCalls.getUserData(), apiCalls.getRoomData(), apiCalls.getBooking
   .then(data => {
     const allData = data.reduce((dataSet, eachDataset) => {      
       return dataSet = {...dataSet, ...eachDataset}
-    }, {})
+    }, {});
     instanciatate(allData);
     updateTodayDate();
-    //apiCalls.deleteBookingData({id: 1604713186375})
-    // currentUser = new Manager('Elle');
-    // displayManagerPage();
-    // currentUser = updateCurrentCustomer(50);
-    // updateWelcome()
-    // displayCustomerPage()
   })
 
 function instanciatate(dataSet) {
@@ -76,7 +55,7 @@ function instanciatate(dataSet) {
 
 function updateTodayDate() {
   const year = new Date().getFullYear();
-  let month = new Date().getMonth()+1;
+  let month = new Date().getMonth() + 1;
   let date = new Date().getDate();
   month = month < 10 ? `0${month}` : month
   date = date < 10 ? `0${date}` : date
@@ -126,7 +105,6 @@ function displayPage() {
   updateWelcome();
 }
 
-/////////////////////////Manager site below///////////////////////////
 function displayManagerPage() { 
   const sections = [{section: loginPage, addHidden: true}, {section: mainPage}];
   domUpdate.updateElement(sections);
@@ -134,13 +112,15 @@ function displayManagerPage() {
 }
 
 function displayManagerTodayData() {
+  const todayDataSection = document.querySelector('.today-data');
   const bookedRooms = bookingsRepo.returnBookedRoomsNum('date', today);
   const openRooms = roomsRepo.returnAvailableRooms(bookedRooms);
   const revenue = currentUser.returnTodayRevenue(today, bookings, rooms);
-  domUpdate.updateManagerTodayData(todayDataSection, (openRooms.length), revenue, ((bookedRooms.length)/25));
+  domUpdate.updateManagerTodayData(todayDataSection, (openRooms.length), revenue, ((bookedRooms.length) / 25));
 }
 
 function displayAvailableRooms() {  
+  const calendarInput = document.querySelector('#calendar-input');
   selectDate = calendarInput.value.split('-').join('/');
   if (!selectDate || selectDate < today) {
     displayMessage(0, 'error');
@@ -162,6 +142,7 @@ function updateAvailableRooms() {
 }
 
 function displayFilterTypes() {
+  const listTypes = document.querySelector('.list-types');
   const types = returnAllRoomTypes();
   domUpdate.displayTypes(listTypes, types);
 }
@@ -204,23 +185,23 @@ function selectARoom() {
 function makeBooking() {
   newBooking.date = selectDate;
   if (currentCustomer) {
-    newBooking.userID = currentCustomer.id;
-    apiCalls.addBookingData(newBooking)
-      .then((data) => {
-        bookingsRepo.bookings.push(new Booking(data.id, data.userID, data.date, data.roomNumber));
-        updateGuestInfo();
-      })
+    addBooking(currentCustomer);
   } else if (currentUser instanceof Customer) {
-    newBooking.userID = currentUser.id;
-    apiCalls.addBookingData(newBooking)
-      .then((data) => {
-        bookingsRepo.bookings.push(new Booking(data.id, data.userID, data.date, data.roomNumber));
-        updateCustomerPage();
-      })
+    addBooking(currentUser);
   } 
 }
 
+function addBooking(selectUser) {
+  newBooking.userID = selectUser.id;
+  apiCalls.addBookingData(newBooking)
+    .then((data) => {
+      bookingsRepo.bookings.push(new Booking(data.id, data.userID, data.date, data.roomNumber));
+      selectUser === currentCustomer ? updateGuestInfo() : updateCustomerPage();
+    })
+}
+
 function returnGuestInfo() {
+  const guestSearchInput = document.querySelector('#guest');
   return customers.find(customer => customer.name === guestSearchInput.value)
 }
 
@@ -266,21 +247,21 @@ function udpateDeleteBooking(id) {
   bookingsRepo.removeBooking(id)
 }
 
-/////////////////////////Manager site above///////////////////////////
-
 function updateWelcome() {
-  const welcome = document.querySelector('h2');
+  const welcome = document.querySelector('.welcome');
   domUpdate.updateWelcomeMsg(welcome, currentUser);
 }
 
 function displayCustomerPage() {
-  const sections = [{section: loginPage, addHidden: true}, {section: mainPage}, {section: deleteBookingSection , addHidden: true}];
+  const deleteBookingSection = document.querySelector('.delete-booking');
+  const sections = [{section: loginPage, addHidden: true}, {section: mainPage}, {section: deleteBookingSection, addHidden: true}];
   domUpdate.updateElement(sections);
   updateCustomerPage();
 }
 
 function updateCustomerPage() {
+  const guestSection = document.querySelector('.guest-data');
   const bookings = bookingsRepo.filterBookingsByRef('userID', currentUser.id);
   const totalCost = currentUser.returnUserRevenue(currentUser.id, bookings, rooms) 
-  domUpdate.updateCustomerView(guestSection, calendarLabel, bookings, totalCost);
+  domUpdate.updateCustomerView(guestSection, bookings, totalCost);
 }
