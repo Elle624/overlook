@@ -72,10 +72,6 @@ const domUpdate = {
     } 
   },
 
-  // displayErrorMsg: section  => {
-  //   section.innerText = 'Sorry! Can not operate on a past date or without choosing a user, please try again! '
-  // },
-
   updateGuestInfo: function (section, bookings, cost) {
     section.innerHTML = '';
     section.innerHTML =
@@ -91,7 +87,6 @@ const domUpdate = {
     bookings.forEach(booking => {
       const date = new Date(booking.date);
       const chosenDate= date.toDateString().split(' ');
-      //const chosenDate = dateInWords.slice(1);
       section += 
       `
       <p>${chosenDate[1]} ${chosenDate[2]}, ${chosenDate[3]}  Room# ${booking.roomNumber}</p>
