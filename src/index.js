@@ -25,10 +25,8 @@ const loginData = Array.from(loginInputs);
 const loginBtn = document.querySelector('#register-btn');
 const loginPage = document.querySelector('.login-page');
 const mainPage = document.querySelector('.main-page');
-const todayDataSection = document.querySelector('.today-data');
 const listRoomsSection = document.querySelector('.list-rooms');
-const calendarInput = document.querySelector('#calendar-input');
-const calendarLabel = document.querySelector('.calendar-label');
+
 const selectDateBtn = document.querySelector('.select-date-btn');
 const displayRoomsSection = document.querySelector('.display-rooms');
 const listTypes = document.querySelector('.list-types');
@@ -129,6 +127,7 @@ function displayManagerPage() {
 }
 
 function displayManagerTodayData() {
+  const todayDataSection = document.querySelector('.today-data');
   const bookedRooms = bookingsRepo.returnBookedRoomsNum('date', today);
   const openRooms = roomsRepo.returnAvailableRooms(bookedRooms);
   const revenue = currentUser.returnTodayRevenue(today, bookings, rooms);
@@ -136,6 +135,7 @@ function displayManagerTodayData() {
 }
 
 function displayAvailableRooms() {  
+  const calendarInput = document.querySelector('#calendar-input');
   selectDate = calendarInput.value.split('-').join('/');
   if (!selectDate || selectDate < today) {
     displayMessage(0, 'error');
@@ -276,5 +276,5 @@ function displayCustomerPage() {
 function updateCustomerPage() {
   const bookings = bookingsRepo.filterBookingsByRef('userID', currentUser.id);
   const totalCost = currentUser.returnUserRevenue(currentUser.id, bookings, rooms) 
-  domUpdate.updateCustomerView(guestSection, calendarLabel, bookings, totalCost);
+  domUpdate.updateCustomerView(guestSection, bookings, totalCost);
 }

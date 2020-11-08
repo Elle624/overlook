@@ -95,8 +95,7 @@ const domUpdate = {
     return section;
   },
 
-  updateCustomerView: function (section1, section2, bookings, cost) {
-    section2.innerText = 'Please enter or choose a date'
+  updateCustomerView: function (section1, bookings, cost) {
     section1.innerHTML = '';
     section1.innerHTML =
     `
