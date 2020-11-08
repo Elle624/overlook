@@ -90,11 +90,11 @@ const domUpdate = {
     let section = '';
     bookings.forEach(booking => {
       const date = new Date(booking.date);
-      const dateInWords= date.toDateString().split(' ');
-      const chosenDate = dateInWords.slice(1);
+      const chosenDate= date.toDateString().split(' ');
+      //const chosenDate = dateInWords.slice(1);
       section += 
       `
-      <p>${chosenDate} Room# ${booking.roomNumber}</p>
+      <p>${chosenDate[1]} ${chosenDate[2]}, ${chosenDate[3]}  Room# ${booking.roomNumber}</p>
       `
     });
     return section;
