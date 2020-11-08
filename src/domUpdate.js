@@ -89,9 +89,12 @@ const domUpdate = {
   displayBookings: bookings => {
     let section = '';
     bookings.forEach(booking => {
+      const date = new Date(booking.date);
+      const dateInWords= date.toDateString().split(' ');
+      const chosenDate = dateInWords.slice(1);
       section += 
       `
-      <p>${booking.date} Room number ${booking.roomNumber}</p>
+      <p>${chosenDate} Room# ${booking.roomNumber}</p>
       `
     });
     return section;
