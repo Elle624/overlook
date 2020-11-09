@@ -68,7 +68,7 @@ const domUpdate = {
     if (element.applogy) {
       element.section.innerText = 'We are very sorry!!! Currently there are no rooms available for that type/day, please try a different type/date!'
     } else if (element.error) {
-      element.section.innerText = 'Sorry! Can not operate on a past date or without choosing a user, please try again! '
+      element.section.innerText = 'Invalid input! Please double check (if) selected date/room#/customer and try again! '
     } 
   },
 
