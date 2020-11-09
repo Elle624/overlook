@@ -226,7 +226,8 @@ function displayGuestInfo() {
 
 function updateGuestInfo() {
   const bookings = bookingsRepo.filterBookingsByRef('userID', currentCustomer.id);
-  const totalCost = currentCustomer.returnUserRevenue(currentCustomer.id, bookings, rooms) 
+  const totalCost = currentCustomer.returnUserRevenue(currentCustomer.id, bookings, rooms);
+  bookings.sort((a, b) => a.date < b.date ? -1 : 1); 
   domUpdate.updateGuestInfo(displayGuestDataSection, bookings, totalCost);
 }
 
@@ -271,6 +272,7 @@ function displayCustomerPage() {
 function updateCustomerPage() {
   const guestSection = document.querySelector('.guest-data');
   const bookings = bookingsRepo.filterBookingsByRef('userID', currentUser.id);
-  const totalCost = currentUser.returnUserRevenue(currentUser.id, bookings, rooms) 
+  const totalCost = currentUser.returnUserRevenue(currentUser.id, bookings, rooms);
+  bookings.sort((a, b) => a.date < b.date ? -1 : 1);
   domUpdate.updateCustomerView(guestSection, bookings, totalCost);
 }
