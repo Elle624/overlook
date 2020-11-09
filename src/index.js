@@ -121,6 +121,7 @@ function displayManagerTodayData() {
 
 function displayAvailableRooms() {  
   const calendarInput = document.querySelector('#calendar-input');
+  event.preventDefault();
   selectDate = calendarInput.value.split('-').join('/');
   if (!selectDate || selectDate < today) {
     displayMessage(0, 'error');
@@ -206,6 +207,7 @@ function returnGuestInfo() {
 }
 
 function displayGuestInfo() {
+  event.preventDefault();
   currentCustomer = returnGuestInfo();   
   if (currentCustomer) {
     updateGuestInfo();
