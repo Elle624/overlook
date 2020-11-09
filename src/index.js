@@ -63,9 +63,13 @@ function updateTodayDate() {
 }
 
 function checkLoginInputs() {
+  const wrongLogin = document.querySelector('.wrong-login-msg');
   event.preventDefault();
   if (!areInputsFilled() && checkUsername() && checkPassword()) {
     displayPage();
+    domUpdate.updateElement([{section: wrongLogin, addHidden: true}]);
+  } else if (!checkUsername() || !checkPassword() || areInputsFilled()) {
+    domUpdate.updateElement([{section: wrongLogin}]);
   }
 }
 
@@ -121,7 +125,8 @@ function displayManagerTodayData() {
 
 function displayAvailableRooms() {  
   const calendarInput = document.querySelector('#calendar-input');
-  selectDate = calendarInput.value.split('-').join('/');
+  event.preventDefault();
+  selectDate = calendarInput.value.replaceAll('-', '/');
   if (!selectDate || selectDate < today) {
     displayMessage(0, 'error');
     domUpdate.updateElement([{section: listRoomsSection, addHidden: true}]);
@@ -167,6 +172,7 @@ function displayFilterRooms() {
     domUpdate.updateElement([{section: messageSection[1], addHidden: true}]);
     domUpdate.updateAvailableRooms(displayRoomsSection, filterRooms);
   } else {
+    domUpdate.updateElement([{section: displayRoomsSection, addHidden: true}])
     displayMessage(1, 'applogy');
   }
 }
@@ -179,7 +185,9 @@ function filterAvailableRooms() {
 }
 
 function selectARoom() {
-  newBooking.roomNumber = parseInt(event.target.className);
+  if (event.target.parentNode.id) {
+    newBooking.roomNumber = parseInt(event.target.parentNode.id);
+  }
 }
 
 function makeBooking() {
@@ -206,6 +214,7 @@ function returnGuestInfo() {
 }
 
 function displayGuestInfo() {
+  event.preventDefault();
   currentCustomer = returnGuestInfo();   
   if (currentCustomer) {
     updateGuestInfo();
@@ -236,7 +245,7 @@ function deleteBooking() {
 }
 
 function checkDeleteBookingInputs() {
-  selectDate = deleteBookingInputs[0].value.split('-').join('/');
+  selectDate = deleteBookingInputs[0].value.replaceAll('-', '/');
   const roomNum = parseInt(deleteBookingInputs[1].value);
   return bookingsRepo.findBooking(selectDate, roomNum);
 }

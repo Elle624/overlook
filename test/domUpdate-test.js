@@ -4,7 +4,7 @@ chai.use(spies);
 import { expect } from 'chai';
 import domUpdate from '../src/domUpdate';
 
-describe.only('domUpdate', () => {
+describe('domUpdate', () => {
   let elementAddHidden, elementAddHide, elementRemove;
   beforeEach(() => {
     elementAddHidden = {section: {classList: {add: () => {}}}, addHidden: true};
@@ -67,8 +67,8 @@ describe.only('domUpdate', () => {
     expect(domUpdate.displayBookings).to.have.been.called.with(['bookings']);
   })
 
-  it('should call displayBookings when invoking CustomerView', () => {
-    domUpdate.updateCustomerView({section: {innerHTML: ''}}, {section: {innerText: ''}}, ['bookings'], 3);
+  it('should call displayBookings when invoking updateCustomerView', () => {
+    domUpdate.updateCustomerView({section: {innerHTML: ''}}, ['bookings'], 3);
 
     expect(domUpdate.displayBookings).to.have.been.called(1);
     expect(domUpdate.displayBookings).to.have.been.called.with(['bookings']);

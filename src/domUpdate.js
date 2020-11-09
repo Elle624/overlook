@@ -38,7 +38,15 @@ const domUpdate = {
     rooms.forEach(room => {
       section +=
       `
-      <p class="${room}" tabindex="0">room ${room}</p>
+      <section tabindex="0" class="room-list" id="${room.number}">
+      <p>Room Number: ${room.number}</p>
+      <p>Room Type: ${room.roomType}</p>
+      <p>Has Bidet? ${room.bidet}</p>
+      <p>Bed Size: ${room.bedSize}</p>
+      <p>Number of Beds: ${room.numBeds}</p>
+      <p>Cost Per Night: $${room.costPerNight}</p>
+      </section>
+      
       `
     })
     return section;
@@ -68,7 +76,7 @@ const domUpdate = {
     if (element.applogy) {
       element.section.innerText = 'We are very sorry!!! Currently there are no rooms available for that type/day, please try a different type/date!'
     } else if (element.error) {
-      element.section.innerText = 'Sorry! Can not operate on a past date or without choosing a user, please try again! '
+      element.section.innerText = 'Invalid input! Please double check (if) selected date/room#/customer and try again! '
     } 
   },
 
