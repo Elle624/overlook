@@ -38,7 +38,15 @@ const domUpdate = {
     rooms.forEach(room => {
       section +=
       `
-      <p class="${room}" tabindex="0">room ${room}</p>
+      <section tabindex="0" class="room-list" id="${room.number}">
+      <p>Room Number: ${room.number}</p>
+      <p>Room Type: ${room.roomType}</p>
+      <p>Has Bidet? ${room.bidet}</p>
+      <p>Bed Size: ${room.bedSize}</p>
+      <p>Number of Beds: ${room.numBeds}</p>
+      <p>Cost Per Night: $${room.costPerNight}</p>
+      </section>
+      
       `
     })
     return section;
