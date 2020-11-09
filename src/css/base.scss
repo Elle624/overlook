@@ -111,9 +111,17 @@ img {
 p {
   font-size: 2.5em;
   &:hover {
-    cursor: pointer;
     opacity: 0.5;
   }
+}
+
+.room-list {
+  cursor: pointer;
+  margin: 2em;
+  background-color: #aad6fa99;
+  box-shadow: 1em 1em #8f979d;
+  border-radius: 0.6em;
+  padding: 0.5em;
 }
 
 .right-side {
