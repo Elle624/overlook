@@ -36,29 +36,30 @@ describe('RooomsRepo Class', () => {
       expect(roomsRepo.rooms).to.deep.equal([room1, room2, room3]);
     })
   })
+
   describe('methods', () => {
     it('should filter rooms by type', () => {
-      const result = roomsRepo.filterRoomsByType('suit', [1, 2]);
+      const result = roomsRepo.filterRoomsByType('suit', [room1, room2]);
       
-      expect(result).to.deep.equal([2]);
+      expect(result).to.deep.equal([room2]);
     })
 
     it('should filter rooms by other type', () => {
-      const result = roomsRepo.filterRoomsByType('single', [1, 2, 3]);
+      const result = roomsRepo.filterRoomsByType('single', [room1, room2, room3]);
       
-      expect(result).to.deep.equal([1, 3]);
+      expect(result).to.deep.equal([room1, room3]);
     })
 
-    it('should return available room#', () => {
+    it('should return available room', () => {
       const result = roomsRepo.returnAvailableRooms(roomsTaken = [3]);
 
-      expect(result).to.deep.equal([1, 2]);
+      expect(result).to.deep.equal([room1, room2]);
     })
 
-    it('should return available all room# if no rooms are taken', () => {
+    it('should return available all room if no rooms are taken', () => {
       const result = roomsRepo.returnAvailableRooms(roomsTaken = []);
 
-      expect(result).to.deep.equal([1, 2, 3]);
+      expect(result).to.deep.equal([room1, room2, room3]);
     })
   })
 })

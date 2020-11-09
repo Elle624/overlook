@@ -6,8 +6,8 @@ class RoomsRepo {
   filterRoomsByType(type, rooms) {
     return this.rooms.reduce((typeRooms, eachRoom) => {
       rooms.forEach(room => {
-        if (room === eachRoom.number && eachRoom.roomType === type) {
-          typeRooms.push(eachRoom.number)
+        if (room.number === eachRoom.number && eachRoom.roomType === type) {
+          typeRooms.push(eachRoom)
         }
       })
       return typeRooms
@@ -15,11 +15,11 @@ class RoomsRepo {
   }
 
   returnAvailableRooms(roomsTaken) {
-    return this.rooms.reduce((roomsNum, room) => {
+    return this.rooms.reduce((availableRooms, room) => {
       if (!roomsTaken.includes(room.number)) {
-        roomsNum.push(room.number);
+        availableRooms.push(room);
       }
-      return roomsNum;
+      return availableRooms;
     }, [])
   }
 }
