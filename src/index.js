@@ -63,9 +63,13 @@ function updateTodayDate() {
 }
 
 function checkLoginInputs() {
+  const wrongLogin = document.querySelector('.wrong-login-msg');
   event.preventDefault();
   if (!areInputsFilled() && checkUsername() && checkPassword()) {
     displayPage();
+    domUpdate.updateElement([{section: wrongLogin, addHidden: true}]);
+  } else if (!checkUsername() || !checkPassword() || areInputsFilled()) {
+    domUpdate.updateElement([{section: wrongLogin}]);
   }
 }
 
