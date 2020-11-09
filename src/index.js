@@ -126,7 +126,7 @@ function displayManagerTodayData() {
 function displayAvailableRooms() {  
   const calendarInput = document.querySelector('#calendar-input');
   event.preventDefault();
-  selectDate = calendarInput.value.split('-').join('/');
+  selectDate = calendarInput.value.replaceAll('-', '/');
   if (!selectDate || selectDate < today) {
     displayMessage(0, 'error');
     domUpdate.updateElement([{section: listRoomsSection, addHidden: true}]);
@@ -172,6 +172,7 @@ function displayFilterRooms() {
     domUpdate.updateElement([{section: messageSection[1], addHidden: true}]);
     domUpdate.updateAvailableRooms(displayRoomsSection, filterRooms);
   } else {
+    domUpdate.updateElement([{section: displayRoomsSection, addHidden: true}])
     displayMessage(1, 'applogy');
   }
 }
@@ -184,7 +185,9 @@ function filterAvailableRooms() {
 }
 
 function selectARoom() {
-  newBooking.roomNumber = parseInt(event.target.className);
+  if (event.target.parentNode.id) {
+    newBooking.roomNumber = parseInt(event.target.parentNode.id);
+  }
 }
 
 function makeBooking() {
@@ -242,7 +245,7 @@ function deleteBooking() {
 }
 
 function checkDeleteBookingInputs() {
-  selectDate = deleteBookingInputs[0].value.split('-').join('/');
+  selectDate = deleteBookingInputs[0].value.replaceAll('-', '/');
   const roomNum = parseInt(deleteBookingInputs[1].value);
   return bookingsRepo.findBooking(selectDate, roomNum);
 }
