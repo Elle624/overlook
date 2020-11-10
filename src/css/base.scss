@@ -37,7 +37,7 @@ h1 {
 h2 {
   font-family: $font;
   font-size: 2.5em;
-  color: #0d25ad;
+  color: #114293;
 }
 
 input {
@@ -95,6 +95,8 @@ img {
 
 .today-data {
   margin-bottom: 2em;
+  background-color: white;
+  box-shadow: 0px 10px 1px #ddd, 0 10px 20px #ccc;
 }
 
 .label-name {
@@ -160,10 +162,6 @@ p {
   width: 9em;
 }
 
-// @mixin response($big-desktop) {};
-// @mixin response($big-tab) {};
-// @mixin response($small-tab) {};
-
 @media only screen and (max-width: 1200px) {
   .dashboard {
     margin: 10em 1em;
@@ -184,3 +182,16 @@ p {
     width: 10em;
   }
 }
+
+@media only screen and (max-width: 480px) {
+  .dashboard {
+    display: block;
+  }
+  .right-side {
+    margin-top: 2em;
+  }
+  .left-side {
+    width: 100%;
+  }
+}
+  
