@@ -15,6 +15,10 @@ const domUpdate = {
     title.innerText = `${user.name}`;
   },
 
+  eraseLoginInputs: inputs => {
+    inputs.forEach(input => input.value = '')
+  },
+
   updateManagerTodayData: (section, rooms, revenue, occupation) => {
     section.innerHTML = '';
     section.innerHTML =

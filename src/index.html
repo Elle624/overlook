@@ -10,7 +10,6 @@
       <h1>Welcome to Overlook</h1>
       <form class="login-form">
         <p id="log-in">LOG IN</p>
-        <p class="wrong-login-msg hidden">Invalid entry! Please check and try again!</p>
         <p class="float">
           <label for="username">USERNAME</label>
           <input type="text" name="login" id="username" class="login-input" placeholder="Username">
@@ -22,13 +21,15 @@
         <p class="clearfix">   
           <label for="register-btn"></label>  
           <input type="submit" id="register-btn" name="submit" value="Log in">
-        </p>       
+          <p class="wrong-login-msg hidden">Invalid entry! Please check and try again!</p>
+        </p>      
       </form>
     </section>
     <section class="main-page hidden">
       <nav>
-        <image class="user-icon" src="./images/user-icon.png" atl="user icon">
-        <p class="welcome">Welcome back </p>
+        <image class="user-icon" src="./images/user-icon.png" alt="user icon">
+        <p class="welcome" id="welcome-title">Welcome back </p>
+        <button aria-label="log-out" id="log-out">Log Out</button>
       </nav>
       <section class="dashboard">
         <section class="left-side">
@@ -50,7 +51,7 @@
         </section>
         <section class="right-side">
           <form class="guest-data">
-            <label class="label-name" for="guest">Please enter guest's name</label>
+            <label class="label-name" for="guest-name">Please enter guest's name</label>
             <input type="text" placeholder="e.g Isabel Li" id="guest-name">
             <button class="search-customer-btn" aria-label="search-customer">Enter</button>
             <section class="display-guest-data hide">

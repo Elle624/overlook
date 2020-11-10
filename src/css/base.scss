@@ -50,7 +50,7 @@ input {
 button {
   @include width-height(6em, 2em);
   font-size: 1em;
-  background-color: #4287f5;
+  background-color: #1a3e5c;
   border: none;
   border-radius: 3em;
   color: #fff;
@@ -74,12 +74,21 @@ button {
 
 nav {
   display: flex;
-  background-color: #3e97de;
+  background-color: #1a3e5c;
 }
 
 img {
   @include width-height(3em, 3em);
   margin-right: 1em;
+}
+
+#log-out {
+  background: none;
+  margin: 0.2em;
+  &:hover {
+    color: rgb(206, 189, 41);
+    opacity: 0.7;
+  }
 }
 
 .dashboard {
@@ -107,16 +116,16 @@ img {
 p {
   font-size: 2em;
   color: #071775;
-  &:hover {
-    opacity: 0.5;
-  }
   &.guest {
     margin-top: 1em;
     color: #f3f1f1;
-    background-color: #4097de;
+    background-color: $primary-background;
     border-radius: 0.2em;
     padding: 0.2em;
     box-shadow: 0.2em 0.2em #b2d2f0;
+  }
+  &#welcome-title {
+    color: white;
   }
 }
 
@@ -129,6 +138,10 @@ p {
   padding: 0.5em;
 }
 
+.booking-list {
+  outline: none;
+}
+
 .right-side {
   margin-left: 10%;
   width: 60%;
@@ -138,6 +151,7 @@ p {
 #customer-data-display {
   width: fit-content;
   padding: 0.5em;
+  cursor: default;
 }
 
 .guest-data {
