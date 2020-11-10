@@ -209,7 +209,7 @@ function addBooking(selectUser) {
 }
 
 function returnGuestInfo() {
-  const guestSearchInput = document.querySelector('#guest');
+  const guestSearchInput = document.querySelector('#guest-name');
   return customers.find(customer => customer.name === guestSearchInput.value)
 }
 

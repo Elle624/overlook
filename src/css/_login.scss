@@ -1,5 +1,5 @@
 .login-form {
-  @include display(flex, 33em, 21em, 2em, 0.4em);
+  @include display(flex, 33em, 21em, 0, 0.4em);
   margin: 5em auto 3em;
   flex-direction: column;
   align-items: center;
@@ -9,17 +9,17 @@
       0 2px 2px rgba(0,0,0,0.2),        
       0 1px 5px rgba(0,0,0,0.2),        
       0 0 0 12px rgba(255,255,255,0.4); 
-  h1, #log-in {
+  #log-in {
     font-size: 3em;
-    padding-bottom: 0.3em; 
+    padding-top: 0.3em; 
     color: #6c6763;  
   };
   label {
     display: block;
-    padding: 0 0 5px 2px;
+    // padding: 0 0 5px 2px;
     font-size: 0.4em;
     color: black;
-  }  
+  };
 }
 
 .wrong-login-msg {
