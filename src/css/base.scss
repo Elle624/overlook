@@ -103,15 +103,24 @@ img {
 }
 
 p {
-  font-size: 2.5em;
+  font-size: 2em;
+  color: #071775;
   &:hover {
     opacity: 0.5;
   }
+  &.guest {
+    margin-top: 1em;
+    color: #f3f1f1;
+    background-color: #4097de;
+    border-radius: 0.2em;
+    padding: 0.2em;
+    box-shadow: 0.2em 0.2em #b2d2f0;
+  }
 }
 
-.room-list {
+.room-list, .booking-list {
   cursor: pointer;
-  margin: 2em;
+  margin: 2em 0;
   background-color: #aad6fa99;
   box-shadow: 1em 1em #8f979d;
   border-radius: 0.6em;
@@ -122,6 +131,19 @@ p {
   margin-left: 10%;
   width: 60%;
   display: flex;
+}
+
+#customer-data-display {
+  width: fit-content;
+  padding: 0.5em;
+}
+
+.guest-data {
+  width: 30em;
+}
+
+#guest {
+  width: 7em;
 }
 
 .delete-booking {
@@ -135,14 +157,6 @@ p {
 
 .delete-booking-btn {
   width: 9em;
-}
-
-.guest-data {
-  width: 30em;
-}
-
-#guest {
-  width: 7em;
 }
 
 // @mixin response($big-desktop) {};
