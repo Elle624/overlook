@@ -19,7 +19,6 @@
 * [Challenges](#challenges)
 * [Wins](#wins)
 * [ScreenShots and Demos](#screenshots-and-demos)
-* [Roadmap](#roadmap)
 * [Credits](#credits)
 
 ## Project Overview
