@@ -1,105 +1,100 @@
-# Webpack Starter Kit
+# Overlook' - Turing Mod 2 Solo Project
 
-## Clone This Repo
+### [Overlook' Pages](https://elle624.github.io/overlook/)
 
-That's right, _clone_ not fork. You will use this repo multiple times, but you can only fork a repository once. So here is what you need to do to clone the repo and still be able to push changes to your repo:
+### [Link To My Repo](https://github.com/Elle624/overlook)
 
-1. Clone down this repo. Since you don't want to name your project "webpack-starter-kit", you can use an optional argument when you run `git clone` (you replace the `[...]` with the terminal command arguments): `git clone [remote-address] [what you want to name the repo]`
-1. Remove the default remote: `git remote rm origin` (notice that `git remote -v` not gives you back nothing)
-1. Create a new repo on GitHub with the name of `[what you want to name the repo]` to be consistent with naming
-1. Copy the address that you would use to clone down this repo - something like `git@github.com:...`
-1. Add this remote to your cloned down repo: `git remote add origin [address you copied in the previous step]` - do not include the brackets
+### [Link To My Project Description](https://frontend.turing.io/projects/overlook.html)
 
-Now try to commit something and push it up to your new repo. If everything is setup correctly, you should see the changes on GitHub.
+---
+---
 
-## Setup
+<img width="1429" alt="log-in" src="https://user-images.githubusercontent.com/68085997/98630508-8daae680-22d8-11eb-81f1-400647f76ce4.png">
 
-After one person has gone through the steps of cloning down this repo and editing the remote, everyone should clone down the repo. 
+## Table of Contents
 
-Then install the library dependencies. Run:
+* [Project Overview](#project-overview)
+* [Goals](#goals)
+* [Technologies And Tools](#technologies-and-tools)
+* [Challenges](#challenges)
+* [Wins](#wins)
+* [ScreenShots and Demos](#screenshots-and-demos)
+* [Roadmap](#roadmap)
+* [Credits](#credits)
 
-```bash
-npm install
-```
+## Project Overview
 
-To verify that it is setup correctly, run `npm start` in your terminal. Go to `http://localhost:8080/` and you should see a page with some `h1` text, Turing logo image and a beautiful gradient background. If that's the case, you're good to go. Enter `control + c` in your terminal to stop the server at any time.
+For this project I created a hotel booking application.
 
-## Where to Add Your Code
+My app's functionality included being able to be used by two types of users, manager and customer:
 
-### JavaScript
+As a manager, user can:
+* review today's hotel's statistic
+* search any customer by name, and review their booking history and total revenue
+* make a new booking for any customer
+* delete any unexpired booking for any customer
 
-You have to be very intentional with where you add your feature code. This repo uses a tool called [webpack](https://webpack.js.org/) to combine many JavaScript files into one big file. Webpack enables you to have many, separate JavaScript files to keep your code organized and readable. Webpack expects all of your code files to be in a specific place, or else it doesn't know how to combine them all behind the scenes.
+As a customer, user can:
+* review their own booking history and total revenue
+* make a new booking for themselves
 
-**Create all of your feature code files in the `src` directory.**
+## Goals
 
-Since code is separated into multiple files, you need to use the `import` and `export` syntax to share code across file.
+My goals were to write clean and neat JS code follow SRP, more chai spy tests with TDD, getting more use of fetch, post, and first time using delete.
 
-Here is a video that walks through some information about [import and export](https://www.youtube.com/watch?v=_3oSWwapPKQ). There are a lot of resources out there about `import` and `export`, and resources will sometimes call them `ES6 modules`. It's something you will see in React and beyond.
+I also want to continue using project board and issues to plan and proficient work flow.
 
-### HTML
+If I have more time, I would like to work on CSS to get more comfortable with it.
 
-Add the HTML you need in the `index.html` file in the `./src` directory. There is some boilerplate HTML that exists from the start that you can modify.
+## Technologies And Tools
 
-### CSS (SCSS/SASS)
+* JavaScript (ES6)
+* Webpack
+* HTML
+* SCSS
+* Github project board
 
-This project is setup to use SCSS/SASS files by default instead of your regular CSS files. Add your SCSS files in the `src/css` directory. There is a `base.scss` file already there, but you can change this file and add multiple SCSS files in this directory.
 
-This might sound weird, but you need to `import` your SCSS files in the JavaScript entry file (`index.js`) for the styles to be applied to your HTML. The example `base.scss` file has already been imported in the JavaScript entry file as an example.
+## Challenges
 
-### Images
+My first challenge was wire-framing and design the style. I did different versions and was still adjusting as I executing the ideas. Along working deeper in my project, the challenge become applying methods and update DOM together.
+Adding Chai spy tests also was less comfortable due to it is a fairly new subject.
 
-Add your image files in the `src/images` directory. Similar to CSS files, you need to `import` image files in the JavaScript entry file (`index.js`). Then go into the HTML and add an `img` element with the `src` attribute pointing to the `images` directory. There is an example in the `index.html` file for you to see.
+## Wins
 
-## How to View Your Code in Action
+I'm proud that I finished functionalities in a short time period, worked on my less strong CSS skills, and made my app responsive!
 
-In the terminal, run:
-
-```bash
-npm start
-```
-
-You will see a bunch of lines output to your terminal. One of those lines will be something like:
-
-```bash
-Project is running at http://localhost:8080/
-```
-
-Go to `http://localhost:8080/` in your browser to view your code running in the browser.
+## ScreenShots and Demos
 
 ---
 
-## Test Files Organization
-
-Similar to feature code, your test code needs to be put in a specific place for it to run successfully.
-
-**Put all of your test files in the `test` directory.** As a convention, all test filenames should end with `-test.js`. For instance: `box-test.js`.
-
-## Running Your Tests
-
-Run your test suite using the command:
-
-```bash
-npm test
-```
-
-The test results will output to the terminal.
+### Log in page view:
+<img width="1429" alt="log-in" src="https://user-images.githubusercontent.com/68085997/98630508-8daae680-22d8-11eb-81f1-400647f76ce4.png">
 
 ---
 
-## Linting Your Code
+### manager view:
+<img width="1635" alt="manager-view" src="https://user-images.githubusercontent.com/68085997/98630511-8f74aa00-22d8-11eb-9576-aa665c02f993.png">
 
-Run the command in your terminal `npm run lint` to run the linter on your JavaScript code. There will be errors and warnings right from the start in this starter kit - the linter is still running successfully.
+---
 
-Your linter will look at the JavaScript files you have within the `src` directory and the `test` directory. 
+### manager dashboard:
+<img width="1555" alt="manager-dashboard" src="https://user-images.githubusercontent.com/68085997/98630517-90a5d700-22d8-11eb-90a9-c00782fc6213.png">
+---
 
-## Webpack?
+### customer view:
+<img width="1582" alt="customer-view" src="https://user-images.githubusercontent.com/68085997/98630519-91d70400-22d8-11eb-881e-8e8fe8608fc9.png">
+---
 
-If you look in the `package.json` file, you'll see one of the library dependencies called `webpack`. If you're interested in learning more about what Webpack is and how it works behind the scenes, take a look through the [Webpack configuration documentation](https://webpack.js.org/concepts/).
+### customer dashboard:
+<img width="1437" alt="customer-dashboard" src="https://user-images.githubusercontent.com/68085997/98630521-93083100-22d8-11eb-822a-4989292d4ac3.png">
+---
 
-## Deploying to GitHub Pages
 
-_If you are finished with the functionality and testing of your project_, then you can consider deploying your project to the web! This way anyone can play it without cloning down your repo.
+## Credits
 
-[GitHub Pages](https://pages.github.com/) is a great way to deploy your project to the web. Don't worry about this until your project is free of bugs and well tested!
+<img src="https://avatars2.githubusercontent.com/u/68085997?s=460&u=a632625a079a0ed8f6f0d7adb4820e82a0d24d48&v=4" alt="Elle Li"
+ width="150" height="auto" />\
 
-If you _are_ done, you can follow [this procedure](./gh-pages-procedure.md) to get your project live on GitHub Pages.
+**Elle Lin**
+[GitHub Profile](https://github.com/Elle624)
