@@ -1,5 +1,5 @@
 .login-form {
-  @include display(flex, 33em, 21em, 2em, 0.4em);
+  @include display(flex, 33em, 21em, 0, 0.4em);
   margin: 5em auto 3em;
   flex-direction: column;
   align-items: center;
@@ -9,17 +9,16 @@
       0 2px 2px rgba(0,0,0,0.2),        
       0 1px 5px rgba(0,0,0,0.2),        
       0 0 0 12px rgba(255,255,255,0.4); 
-  h1, #log-in {
+  #log-in {
     font-size: 3em;
-    padding-bottom: 0.3em; 
+    padding-top: 0.3em; 
     color: #6c6763;  
   };
   label {
     display: block;
-    padding: 0 0 5px 2px;
-    font-size: 0.3em;
+    font-size: 0.4em;
     color: black;
-  }  
+  };
 }
 
 .wrong-login-msg {
@@ -34,8 +33,8 @@
 
 .login-form input[type=text],
 .login-form input[type=password] {
-  @include display(block, 100%, 3em, 0.5em, 0.2em);
-  font-size: $small;
+  @include display(block, 120%, 3em, $medium, 0.2em);
+  font-size: $medium;
   border: 0.2em solid #ebe6e2;
   transition: all 0.3s ease-out;
   & :hover {
@@ -48,7 +47,7 @@
   box-shadow: inset 0 .1em rgba(255,255,255,0.3);
   border-radius: $small;
   cursor: pointer;
-  font-size: 0.5em;
+  font-size: $medium;
   text-align: center;
   font-weight: bold;
   background: linear-gradient(#fbd568, #ffb347);

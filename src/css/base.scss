@@ -8,12 +8,6 @@
 
 @import 'variables', 'mixin', 'login';
 
-@media only screen and (max-width: 1200px) {
-  .delete-booking {
-    width: 60%;
-  }
-}
-
 .hidden {
   display: none;
 }
@@ -43,14 +37,14 @@ h1 {
 h2 {
   font-family: $font;
   font-size: 2.5em;
-  color: #0d25ad;
+  color: #114293;
 }
 
 input {
-  @include display(block, 9em, 1.5em, 0.1em, 0.1em);
-  font-size: 2em; 
+  @include display(block, 10em, 1.5em, 0.1em, 0.1em);
+  font-size: 1.4em; 
   font-weight: lighter;
-  margin-bottom: 1em;
+  margin: 0.5em 0 1em;
 }
 
 button {
@@ -101,6 +95,8 @@ img {
 
 .today-data {
   margin-bottom: 2em;
+  background-color: white;
+  box-shadow: 0px 10px 1px #ddd, 0 10px 20px #ccc;
 }
 
 .label-name {
@@ -109,17 +105,26 @@ img {
 }
 
 p {
-  font-size: 2.5em;
+  font-size: 2em;
+  color: #071775;
   &:hover {
     opacity: 0.5;
   }
+  &.guest {
+    margin-top: 1em;
+    color: #f3f1f1;
+    background-color: #4097de;
+    border-radius: 0.2em;
+    padding: 0.2em;
+    box-shadow: 0.2em 0.2em #b2d2f0;
+  }
 }
 
-.room-list {
+.room-list, .booking-list {
   cursor: pointer;
-  margin: 2em;
+  margin: 2em 0;
   background-color: #aad6fa99;
-  box-shadow: 1em 1em #8f979d;
+  box-shadow: 0.5em 0.5em #8f979d;
   border-radius: 0.6em;
   padding: 0.5em;
 }
@@ -130,23 +135,63 @@ p {
   display: flex;
 }
 
-.delete-booking {
-  width: 40%;
-  margin-left: 2em;
-}
-
-#room-num {
-  width: 6em;
-}
-
-.delete-booking-btn {
-  width: 9em;
+#customer-data-display {
+  width: fit-content;
+  padding: 0.5em;
 }
 
 .guest-data {
   width: 30em;
 }
 
-#guest {
-  width: 7em;
+#guest-name {
+  width: 8em;
 }
+
+.delete-booking {
+  width: 40%;
+  margin-left: 2em;
+}
+
+#room-num {
+  width: 7em;
+  height: 1.5em;
+}
+
+.delete-booking-btn {
+  width: 9em;
+}
+
+@media only screen and (max-width: 1200px) {
+  .dashboard {
+    margin: 10em 1em;
+  }
+}
+
+@media only screen and (max-width: 1023px) {
+  .right-side {
+    display: block;
+  }
+  .delete-booking {
+    margin: 3em 0;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .guest-data {
+    width: 10em;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .dashboard {
+    display: block;
+  }
+  .right-side {
+    margin-top: 2em;
+  }
+  .left-side {
+    width: 100%;
+  }
+}
+  

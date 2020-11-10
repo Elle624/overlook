@@ -21,7 +21,7 @@ const domUpdate = {
     `
     <h2 class="available-room">Available rooms today: ${rooms}</h2>
     <h2 class="today-revenue">Today's total revenue: $${revenue.toFixed(2)}</h2>
-    <h2 class="today-occupation">Room Occupation rate: ${occupation*100}% </h2>
+    <h2 class="today-occupation">Room Occupation rate: ${(occupation*100).toFixed(1)} % </h2>
     `
   },
 
@@ -35,13 +35,15 @@ const domUpdate = {
 
   listRooms: (rooms) => {
     let section = '';
+    let bidetValue;
     rooms.forEach(room => {
+      bidetValue = room.bidet ? 'Yes' : 'No';
       section +=
       `
       <section tabindex="0" class="room-list" id="${room.number}">
       <p>Room Number: ${room.number}</p>
       <p>Room Type: ${room.roomType}</p>
-      <p>Has Bidet? ${room.bidet}</p>
+      <p>Bidet: ${bidetValue}</p>
       <p>Bed Size: ${room.bedSize}</p>
       <p>Number of Beds: ${room.numBeds}</p>
       <p>Cost Per Night: $${room.costPerNight}</p>
@@ -56,7 +58,7 @@ const domUpdate = {
     section.innerHTML = '';
     section.innerHTML =
     `
-    <option disabled selected value>-- select type --</option>
+    <option aria-labelledby="available-room-filter" disabled selected value>-- select type --</option>
     ${this.updateTypes(allTypes)}
     `
   },
@@ -66,7 +68,7 @@ const domUpdate = {
     allTypes.forEach(type => {
       section +=
       `
-      <option>${type}</option>
+      <option value="${type}">${type}</option>
       `
     })
     return section;
@@ -85,8 +87,8 @@ const domUpdate = {
     section.innerHTML =
     `
     <h2 class="guest guest-booking">Booking History</h2>
+    <p class="guest" id="customer-data-display">Total Cost: ${cost.toFixed(2)}</p>
     <section>${this.displayBookings(bookings)}</section>
-    <h2 class="guest guest-cost">Total Cost: ${cost.toFixed(2)}</h2>
     `
   },
 
@@ -97,7 +99,10 @@ const domUpdate = {
       const chosenDate = date.toDateString().split(' ');
       section += 
       `
-      <p>${chosenDate[1]} ${chosenDate[2]}, ${chosenDate[3]}  Room# ${booking.roomNumber}</p>
+      <section tabindex="0" class="booking-list" id="customer-data-display">
+        <p>Date: ${chosenDate[1]} ${chosenDate[2]}, ${chosenDate[3]}</p>
+        <p>Room Number: ${booking.roomNumber}</p>
+      </section>
       `
     });
     return section;
@@ -108,9 +113,9 @@ const domUpdate = {
     section1.innerHTML =
     `
     <section class="display-guest-data">
-      <h2 class="guest guest-booking">Booking History</h2>
-      <section>${this.displayBookings(bookings)}</section>
-      <h2 class="guest guest-cost">Total Cost: $${cost.toFixed(2)}</h2> 
+      <h2 class="guest guest-booking">Booking History:</h2>
+      <p class="guest" id="customer-data-display">Total Cost: $${cost.toFixed(2)}</p>
+      <section>${this.displayBookings(bookings)}</section> 
     </section>
     `
   }
