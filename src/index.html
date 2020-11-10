@@ -27,8 +27,9 @@
     </section>
     <section class="main-page hidden">
       <nav>
-        <image class="user-icon" src="./images/user-icon.png" atl="user icon">
-        <p class="welcome">Welcome back </p>
+        <image class="user-icon" src="./images/user-icon.png" alt="user icon">
+        <p class="welcome" id="welcome-title">Welcome back </p>
+        <button aria-label="log-out" id="log-out">Log Out</button>
       </nav>
       <section class="dashboard">
         <section class="left-side">
@@ -50,7 +51,7 @@
         </section>
         <section class="right-side">
           <form class="guest-data">
-            <label class="label-name" for="guest">Please enter guest's name</label>
+            <label class="label-name" for="guest-name">Please enter guest's name</label>
             <input type="text" placeholder="e.g Isabel Li" id="guest-name">
             <button class="search-customer-btn" aria-label="search-customer">Enter</button>
             <section class="display-guest-data hide">

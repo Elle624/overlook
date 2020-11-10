@@ -18,10 +18,12 @@ const loginData = Array.from(loginInputs);
 const loginBtn = document.querySelector('#register-btn');
 const loginPage = document.querySelector('.login-page');
 const mainPage = document.querySelector('.main-page');
+const logOutBtn = document.querySelector('#log-out');
 const listRoomsSection = document.querySelector('.list-rooms');
 const selectDateBtn = document.querySelector('.select-date-btn');
 const displayRoomsSection = document.querySelector('.display-rooms');
 const guestSearchBtn = document.querySelector('.search-customer-btn');
+const guestSection = document.querySelector('.guest-data');
 const displayGuestDataSection = document.querySelector('.display-guest-data');
 const bookBtn = document.querySelector('.book-btn');
 const deleteBookingInputs = document.querySelectorAll('.delete-input input');
@@ -29,6 +31,7 @@ const deleteBookingBtn = document.querySelector('.delete-booking-btn');
 const messageSection = document.querySelectorAll('.message');
 
 loginBtn.addEventListener('click', checkLoginInputs);
+logOutBtn.addEventListener('click', logOut);
 selectDateBtn.addEventListener('click', displayAvailableRooms);
 guestSearchBtn.addEventListener('click', displayGuestInfo);
 listRoomsSection.addEventListener('change', displayFilterRooms);
@@ -68,6 +71,7 @@ function checkLoginInputs() {
   if (!areInputsFilled() && checkUsername() && checkPassword()) {
     displayPage();
     domUpdate.updateElement([{section: wrongLogin, addHidden: true}]);
+    domUpdate.eraseLoginInputs(loginData);
   } else if (!checkUsername() || !checkPassword() || areInputsFilled()) {
     domUpdate.updateElement([{section: wrongLogin}]);
   }
@@ -91,6 +95,10 @@ function checkUsername() {
   }
 }
 
+function logOut() {
+  location.reload();
+}
+
 function updateCurrentCustomer(id) {
   id = parseInt(id);
   return customers.find(customer => customer.id === id);
@@ -110,7 +118,11 @@ function displayPage() {
 }
 
 function displayManagerPage() { 
-  const sections = [{section: loginPage, addHidden: true}, {section: mainPage}];
+  const sections = [
+    {section: loginPage, addHidden: true}, 
+    {section: mainPage}, 
+    {section: guestSection}
+  ];
   domUpdate.updateElement(sections);
   displayManagerTodayData();
 }
@@ -265,13 +277,16 @@ function updateWelcome() {
 
 function displayCustomerPage() {
   const deleteBookingSection = document.querySelector('.delete-booking');
-  const sections = [{section: loginPage, addHidden: true}, {section: mainPage}, {section: deleteBookingSection, addHidden: true}];
+  const sections = [
+    {section: loginPage, addHidden: true}, 
+    {section: mainPage}, 
+    {section: deleteBookingSection, addHidden: true}
+  ];
   domUpdate.updateElement(sections);
   updateCustomerPage();
 }
 
 function updateCustomerPage() {
-  const guestSection = document.querySelector('.guest-data');
   const bookings = bookingsRepo.filterBookingsByRef('userID', currentUser.id);
   const totalCost = currentUser.returnUserRevenue(currentUser.id, bookings, rooms);
   bookings.sort((a, b) => a.date < b.date ? -1 : 1);
