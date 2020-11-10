@@ -87,8 +87,8 @@ const domUpdate = {
     section.innerHTML =
     `
     <h2 class="guest guest-booking">Booking History</h2>
+    <p class="guest" id="customer-data-display">Total Cost: ${cost.toFixed(2)}</p>
     <section>${this.displayBookings(bookings)}</section>
-    <h2 class="guest guest-cost">Total Cost: ${cost.toFixed(2)}</h2>
     `
   },
 
@@ -99,7 +99,10 @@ const domUpdate = {
       const chosenDate = date.toDateString().split(' ');
       section += 
       `
-      <p>${chosenDate[1]} ${chosenDate[2]}, ${chosenDate[3]}  Room# ${booking.roomNumber}</p>
+      <section tabindex="0" class="booking-list" id="customer-data-display">
+        <p>Date: ${chosenDate[1]} ${chosenDate[2]}, ${chosenDate[3]}</p>
+        <p>Room Number: ${booking.roomNumber}</p>
+      </section>
       `
     });
     return section;
@@ -110,9 +113,9 @@ const domUpdate = {
     section1.innerHTML =
     `
     <section class="display-guest-data">
-      <h2 class="guest guest-booking">Booking History</h2>
-      <section>${this.displayBookings(bookings)}</section>
-      <h2 class="guest guest-cost">Total Cost: $${cost.toFixed(2)}</h2> 
+      <h2 class="guest guest-booking">Booking History:</h2>
+      <p class="guest" id="customer-data-display">Total Cost: $${cost.toFixed(2)}</p>
+      <section>${this.displayBookings(bookings)}</section> 
     </section>
     `
   }
