@@ -234,7 +234,7 @@ function updateGuestInfo() {
 
 function deleteBooking() {
   const inquery = checkDeleteBookingInputs();
-  if (inquery && currentCustomer && selectDate > today) {
+  if (inquery && currentCustomer && selectDate >= today) {
     domUpdate.updateElement([{section: messageSection[2], addHidden: true}]);
     apiCalls.deleteBookingData({id: inquery.id})
       .then(() => {
