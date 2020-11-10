@@ -8,12 +8,6 @@
 
 @import 'variables', 'mixin', 'login';
 
-@media only screen and (max-width: 1200px) {
-  .delete-booking {
-    width: 60%;
-  }
-}
-
 .hidden {
   display: none;
 }
@@ -149,4 +143,29 @@ p {
 
 #guest {
   width: 7em;
+}
+
+// @mixin response($big-desktop) {};
+// @mixin response($big-tab) {};
+// @mixin response($small-tab) {};
+
+@media only screen and (max-width: 1200px) {
+  .dashboard {
+    margin: 10em 1em;
+  }
+}
+
+@media only screen and (max-width: 1023px) {
+  .right-side {
+    display: block;
+  }
+  .delete-booking {
+    margin: 3em 0;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .guest-data {
+    width: 10em;
+  }
 }
