@@ -41,7 +41,7 @@ h2 {
 }
 
 input {
-  @include display(block, 9em, 1.5em, 0.1em, 0.1em);
+  @include display(block, 10em, 1.5em, 0.1em, 0.1em);
   font-size: 1.4em; 
   font-weight: lighter;
   margin: 0.5em 0 1em;
@@ -124,7 +124,7 @@ p {
   cursor: pointer;
   margin: 2em 0;
   background-color: #aad6fa99;
-  box-shadow: 1em 1em #8f979d;
+  box-shadow: 0.5em 0.5em #8f979d;
   border-radius: 0.6em;
   padding: 0.5em;
 }
