@@ -205,6 +205,7 @@ function addBooking(selectUser) {
     .then((data) => {
       bookingsRepo.bookings.push(new Booking(data.id, data.userID, data.date, data.roomNumber));
       selectUser === currentCustomer ? updateGuestInfo() : updateCustomerPage();
+      updateAvailableRooms();
     })
 }
 
