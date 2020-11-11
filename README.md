@@ -73,7 +73,7 @@ I'm proud that I finished functionalities in a short time period, worked on my l
 ---
 
 ### manager view:
-<img width="1635" alt="manager-view" src="https://user-images.githubusercontent.com/68085997/98630511-8f74aa00-22d8-11eb-9576-aa665c02f993.png">
+<img width="1792" alt="manager-view" src="https://user-images.githubusercontent.com/68085997/98748904-debde780-2377-11eb-8b56-eb799e264a77.png">
 
 ---
 
@@ -82,7 +82,7 @@ I'm proud that I finished functionalities in a short time period, worked on my l
 ---
 
 ### customer view:
-<img width="1582" alt="customer-view" src="https://user-images.githubusercontent.com/68085997/98630519-91d70400-22d8-11eb-881e-8e8fe8608fc9.png">
+<img width="1621" alt="customer-view" src="https://user-images.githubusercontent.com/68085997/98748911-dfef1480-2377-11eb-8073-cf7dd3627127.png">
 ---
 
 ### customer dashboard:
