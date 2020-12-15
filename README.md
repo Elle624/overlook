@@ -37,6 +37,16 @@ As a customer, user can:
 * review their own booking history and total revenue
 * make a new booking for themselves
 
+Log in:
+```
+username: manager
+password: overlook2020
+```
+```
+username: customer50 (where 50 is the ID of the user, could be any interger between 1 - 50)
+password: overlook2020
+```
+
 ## Goals
 
 My goals were to write clean and neat JS code follow SRP, more chai spy tests with TDD, getting more use of fetch, post, and first time using delete.
