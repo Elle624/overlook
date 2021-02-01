@@ -1,8 +1,8 @@
 # Overlook' - Turing Mod 2 Solo Project
 
-### [Overlook' Pages](https://elle624.github.io/overlook/)
+### [Overlook' Pages](https://yiranli624.github.io/overlook/)
 
-### [Link To My Repo](https://github.com/Elle624/overlook)
+### [Link To My Repo](https://github.com/yiranli624/overlook)
 
 ### [Link To My Project Description](https://frontend.turing.io/projects/overlook.html)
 
